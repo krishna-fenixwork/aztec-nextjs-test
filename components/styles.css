@@ -1,0 +1,10 @@
+.loader_style {
+    border: 0.1px solid rgba(30, 232, 183, 0.3);
+    border-radius: 8px;
+    height: 200px;
+    width: 400px;
+    background: linear-gradient(180deg, rgba(44, 62, 64, 0.7) 0%, rgba(27, 73, 63, 0.182) 100%);
+     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    align-items: center;
+}
