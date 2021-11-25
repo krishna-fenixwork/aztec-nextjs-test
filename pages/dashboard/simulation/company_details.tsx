@@ -80,16 +80,16 @@ const CompanyDetails = ({
 
     useEffect(() => {
         // var mac = CompanyData.macro_trends.map(a => {return {...a}});
-        var mac = JSON.parse(JSON.stringify(CompanyData.macro_trends))
-        var macT = JSON.parse(JSON.stringify(CompanyData.macro_trends))
+        var mac = JSON.parse(JSON.stringify(CompanyData?.macro_trends))
+        var macT = JSON.parse(JSON.stringify(CompanyData?.macro_trends))
         var macF = JSON.parse(JSON.stringify(macroTrend))
 
         setSelectedMacroFactor(mac)
         setMacroTrend(macT)
         setMacroFilterList(macF)
 
-        var mac2 = JSON.parse(JSON.stringify(CompanyData.entities))
-        var macT2 = JSON.parse(JSON.stringify(CompanyData.entities))
+        var mac2 = JSON.parse(JSON.stringify(CompanyData?.entities))
+        var macT2 = JSON.parse(JSON.stringify(CompanyData?.entities))
         var macFF = JSON.parse(JSON.stringify(entities))
 
         setSelectedTrendFactor(mac2)
@@ -188,11 +188,11 @@ const CompanyDetails = ({
 
             <div className="d-flex cac-center-verticle company_details" >
 
-                <img alt="" src={CompanyData.logo_url} style={{ width: 80, height: 80, borderRadius: "50px" }} />
+                <img alt="" src={CompanyData?.logo_url} style={{ width: 80, height: 80, borderRadius: "50px" }} />
 
                 <div className="comp_desc">
 
-                    <div className="poppins-normal font-white">{CompanyData.short_description}</div>
+                    <div className="poppins-normal font-white">{CompanyData?.short_description}</div>
 
                 </div>
 
@@ -210,7 +210,7 @@ const CompanyDetails = ({
                                     <div style={{ marginLeft: "10px", marginTop: "0px" }}>
 
                                         <div className="poppins-normal font-white" style={{ fontSize: "9px" }}> Founding date</div>
-                                        <div className="poppins-bold font-white" style={{ marginTop: "-3px" }}> {CompanyData.founded_on}</div>
+                                        <div className="poppins-bold font-white" style={{ marginTop: "-3px" }}> {CompanyData?.founded_on}</div>
 
                                     </div>
 
@@ -222,7 +222,7 @@ const CompanyDetails = ({
                                     <div style={{ marginLeft: "10px" }}>
 
                                         <div className="poppins-normal font-white" style={{ fontSize: "9px" }}> Location</div>
-                                        <div className="poppins-bold font-white eclipse_loc_short" style={{ marginTop: "-3px" }}>{CompanyData.city}, {CompanyData.region}</div>
+                                        <div className="poppins-bold font-white eclipse_loc_short" style={{ marginTop: "-3px" }}>{CompanyData?.city}, {CompanyData?.region}</div>
 
                                     </div>
 
@@ -242,7 +242,7 @@ const CompanyDetails = ({
                                     <div style={{ marginLeft: "10px" }}>
 
                                         <div className="poppins-normal font-white" style={{ fontSize: "9px" }}> Employees</div>
-                                        <div className="poppins-bold font-white" style={{ marginTop: "-3px" }}> {CompanyData.employee_count}</div>
+                                        <div className="poppins-bold font-white" style={{ marginTop: "-3px" }}> {CompanyData?.employee_count}</div>
 
                                     </div>
 
@@ -254,7 +254,7 @@ const CompanyDetails = ({
                                     <div style={{ marginLeft: "10px" }}>
 
                                         <div className="poppins-normal font-white" style={{ fontSize: "9px" }}> Last funding date</div>
-                                        <div className="poppins-bold font-white eclipse_loc_short" style={{ marginTop: "-3px" }}>{CompanyData.last_funding_date}</div>
+                                        <div className="poppins-bold font-white eclipse_loc_short" style={{ marginTop: "-3px" }}>{CompanyData?.last_funding_date}</div>
 
                                     </div>
 
@@ -274,7 +274,7 @@ const CompanyDetails = ({
                                     <div style={{ marginLeft: "10px" }}>
 
                                         <div className="poppins-normal font-white" style={{ fontSize: "9px" }}> Status</div>
-                                        <div className="poppins-bold font-white" style={{ marginTop: "-3px" }}> {typeof CompanyData.status === 'undefined' ? "---" : CompanyData.status}</div>
+                                        <div className="poppins-bold font-white" style={{ marginTop: "-3px" }}> {typeof CompanyData?.status === 'undefined' ? "---" : CompanyData?.status}</div>
 
                                     </div>
 
@@ -286,7 +286,7 @@ const CompanyDetails = ({
                                     <div style={{ marginLeft: "10px" }}>
 
                                         <div className="poppins-normal font-white" style={{ fontSize: "9px" }}> Total Funding</div>
-                                        <div className="poppins-bold font-white" style={{ marginTop: "-3px" }}> {CompanyData.total_funding}</div>
+                                        <div className="poppins-bold font-white" style={{ marginTop: "-3px" }}> {CompanyData?.total_funding}</div>
 
                                     </div>
 
