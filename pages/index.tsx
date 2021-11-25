@@ -9,7 +9,7 @@ const Index = () => {
     
     useEffect(() => {
         if (typeof window !== 'undefined' && !!getUser() && window.location.pathname === '/') {
-            router.push(SIMULATION)
+            router.push('/dashboard/home')
         } else {
             if (window.location.pathname !== '/') {
                 router.push(window.location.pathname)

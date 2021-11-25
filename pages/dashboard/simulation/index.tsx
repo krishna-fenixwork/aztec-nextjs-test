@@ -63,13 +63,7 @@ const Simulation = ({ }) => {
 
     const [barChart1, setFundBarChart1] = useState<any>(null);
     const [barChart3, setFundBarChart3] = useState<any>(null);
-    const [barChart4, setFundBarChart4] = useState<any>(null);
-
-    const onlogout = () => {
-        auth.signOut();
-        localStorage.clear();
-        router.push('/onboarding/login')
-    }
+    const [barChart4, setFundBarChart4] = useState<any>(null);  
 
     const onAutocompleteSelect = (option:any) => {
         setSelectedFund(option);
@@ -375,7 +369,7 @@ const Simulation = ({ }) => {
 
     return (
         <div className="" style={{ position: 'relative' }}>
-            <button className="btn btn-primary" onClick={onlogout}>Logout</button>
+            
             {
                 (loadingDataCompany || loadingDataGraph || loadingDataMarket || showAnimation) && <div className="loader_center">
 

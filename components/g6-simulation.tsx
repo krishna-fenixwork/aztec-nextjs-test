@@ -85,26 +85,27 @@ const G6Simulation = ({macroFactor, trends}:{macroFactor:any, trends:any}) => {
                 id: 'root',
                 x: 150,
                 y: 125,
-                img: LocationCity,
-                type: 'image',
+                // img: LocationCity,
+                // type: 'image',
                 size: 50,
-                clipCfg: {
-                    show: true,
-                    type: 'circle',
-                    // r: 15
-                },
-                oriLabel: '',
+                // clipCfg: {
+                //     show: true,
+                //     type: 'circle',
+                //     // r: 15
+                // },
+                // oriLabel: '',
                 label: '',
-                labelCfg: {
-                    position: 'center',                    
-                    offset: 10,
-                    style: {
-                        fill: '#fff',
-                        opacity: 0.5
-                    }
-                },
+                // labelCfg: {
+                //     position: 'center',                    
+                //     offset: 10,
+                //     style: {
+                //         fill: '#fff',
+                //         opacity: 0.5
+                //     }
+                // },
                 style: {
-                    opacity: 0
+                    opacity: 1,
+                    fill: '#64e9b7b8'
                 }
                 // icon: {
                 //     show: true,

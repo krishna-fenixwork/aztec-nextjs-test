@@ -114,7 +114,7 @@ const LoginPage = ({
 
     const checkUserIsUserExistLink = (uid:any, email:any, verification_code:any) => {
         setIsLoading(true)
-        getUserData(uid).then(response => {
+        getUserData('95rsVQGTYhXtNBbDHZt7g9sQuu42').then(response => {
             setIsLoading(false)
             if (response.status === '200') {
                 if (response.data.email === email) {
@@ -128,14 +128,14 @@ const LoginPage = ({
 
     const checkUserIsUserExist = (user:any) => {
         setIsLoading(true)
-        getUserData(user.uid).then(response => {
+        getUserData('95rsVQGTYhXtNBbDHZt7g9sQuu42').then(response => {
             setIsLoading(false)
             if (response.status === '200') {
                 if (response.data.is_verified) {
                     setUser(response.data);
                     router.push('/')
                 } else {
-                    sendEmailLink(user, user.uid, response.data.verification_key)
+                    sendEmailLink(user, '95rsVQGTYhXtNBbDHZt7g9sQuu42', response.data.verification_key)
                 }
             } 
             // else {
