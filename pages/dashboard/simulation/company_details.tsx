@@ -16,6 +16,10 @@ import ic_total_fund from '../../aseets/ic_total_fund.svg';
 import ic_check_selected from '../../aseets/ic_checkbox_selected.svg';
 import ic_check_unselected from '../../aseets/ic_checkbox_unselected.svg';
 
+const loader:any = ({ src, width, quality }: { src:any, width:any, quality:any }) => {
+    return `https://www.ag-grid.com/${src}?w=${width}&q=${quality || 75}`
+}
+
 const CompanyDetails = ({
     CompanyData,
     period,
@@ -205,7 +209,7 @@ const CompanyDetails = ({
                             <div className="justify-content-between" >
 
                                 <div className="div_row_sm">
-                                    <Image src={ic_calender} height={20} width={20} />
+                                    <Image src={ic_calender} height={20} width={20} loader={loader} />
 
                                     <div style={{ marginLeft: "10px", marginTop: "0px" }}>
 
@@ -218,7 +222,7 @@ const CompanyDetails = ({
 
                                 <div className="div_row_sm " style={{ marginTop: "8px" }}>
 
-                                    <Image src={ic_location} height={20} width={20} />
+                                    <Image src={ic_location} height={20} width={20} loader={loader} />
                                     <div style={{ marginLeft: "10px" }}>
 
                                         <div className="poppins-normal font-white" style={{ fontSize: "9px" }}> Location</div>
@@ -237,7 +241,7 @@ const CompanyDetails = ({
                             <div className="justify-content-between">
 
                                 <div className="div_row_sm " style={{ marginTop: "0px" }}>
-                                    <Image src={ic_people} height={20} width={20} />
+                                    <Image src={ic_people} height={20} width={20} loader={loader} />
 
                                     <div style={{ marginLeft: "10px" }}>
 
@@ -249,7 +253,7 @@ const CompanyDetails = ({
                                 </div>
 
                                 <div className="div_row_sm " style={{ marginTop: "8px" }}>
-                                    <Image src={ic_doller} height={20} width={20} />
+                                    <Image src={ic_doller} height={20} width={20} loader={loader} />
 
                                     <div style={{ marginLeft: "10px" }}>
 
@@ -269,7 +273,7 @@ const CompanyDetails = ({
                             <div className="justify-content-between">
 
                                 <div className="div_row_sm" style={{ marginTop: "0px" }}>
-                                    <Image src={ic_flag} height={20} width={20} />
+                                    <Image src={ic_flag} height={20} width={20} loader={loader} />
 
                                     <div style={{ marginLeft: "10px" }}>
 
@@ -281,7 +285,7 @@ const CompanyDetails = ({
                                 </div>
 
                                 <div className="div_row_sm " style={{ marginTop: "8px" }}>
-                                    <Image src={ic_total_fund} height={20} width={20} />
+                                    <Image src={ic_total_fund} height={20} width={20} loader={loader} />
 
                                     <div style={{ marginLeft: "10px" }}>
 
@@ -323,12 +327,12 @@ const CompanyDetails = ({
                                                     <Image src={ic_check_selected} height={20} width={20}
                                                         onClick={() =>
                                                             selectMacro(data)
-                                                        } />
+                                                        } loader={loader} />
                                                     :
                                                     <Image src={ic_check_unselected} height={20} width={20}
                                                         onClick={() =>
                                                             selectMacro(data)
-                                                        } />
+                                                        } loader={loader} />
                                             }
 
                                             <div className="poppins-bold font-white" style={{ marginLeft: "10px" }}>{data.macro_trend}</div>
@@ -349,7 +353,7 @@ const CompanyDetails = ({
                                     <div className="removed_border_btn input_box_container_btn" style={{ marginTop: "10px" }}
                                         onClick={() => setOpenPopupMacro(!openPopupMacro)}>
 
-                                        <Image src={ic_search} height={20} width={20} />
+                                        <Image src={ic_search} height={20} width={20} loader={loader} />
 
                                         <input type="text" value={inputValueMacro} className="cac_automcomplete_input_trend" placeholder="Add new factor"
                                             onChange={onInputChangeMacro}
@@ -428,12 +432,12 @@ const CompanyDetails = ({
                                                     <Image src={ic_check_selected} height={20} width={20}
                                                         onClick={() =>
                                                             selectTrend(data)
-                                                        } />
+                                                        } loader={loader} />
                                                     :
                                                     <Image src={ic_check_unselected} height={20} width={20}
                                                         onClick={() =>
                                                             selectTrend(data)
-                                                        } />
+                                                        } loader={loader} />
 
                                             }
 
@@ -455,7 +459,7 @@ const CompanyDetails = ({
                                     <div className="removed_border_btn input_box_container_btn" style={{ marginTop: "10px" }}
                                         onClick={() => setOpenPopupTrend(!openPopupTrend)}>
 
-                                        <Image src={ic_search} height={20} width={20} />
+                                        <Image src={ic_search} height={20} width={20} loader={loader} />
 
                                         <input type="text" value={inputValueTrend} className="cac_automcomplete_input_trend" placeholder="Add new factor"
                                             onChange={onInputChangeTrend}

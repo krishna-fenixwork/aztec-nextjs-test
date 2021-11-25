@@ -23,13 +23,18 @@ const WelcomePage = () => {
         }
     }
 
+    const loader:any = ({ src, width, quality }: { src:any, width:any, quality:any }) => {
+        return `https://www.ag-grid.com/${src}?w=${width}&q=${quality || 75}`
+    }
+    
+
     return (
         <div>
             <div id="gradT">
                 <div className="secondaryContainerW">
 
                     <div className="topFlex">
-                        <Image src={home_logo} height={150} width={150} />
+                        <Image src={home_logo} height={150} width={150} loader={loader} />
 
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
 

@@ -16,6 +16,10 @@ import { checkDomain, setConfig, setUser } from '../../../services/common_servic
 import { notifyError, notifySuccess } from '../../../services/toaster_services';
 import { LOGINURL } from '../../../constants/envConstants';
 
+const loader:any = ({ src, width, quality }: { src:any, width:any, quality:any }) => {
+    return `https://www.ag-grid.com/${src}?w=${width}&q=${quality || 75}`
+}
+
 const LoginPage = ({
     startRegister,
     signInWithEmail,
@@ -177,7 +181,7 @@ const LoginPage = ({
 
     return (
         <div id="grad">
-            <Image src={logo} alt="" />
+            <Image src={logo} alt="" loader={loader} />
             {isLoading ?
                 <CircularProgress /> :
                 <div style={{ width: "350px" }}>

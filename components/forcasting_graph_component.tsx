@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_dark from "@amcharts/amcharts4/themes/dark";
 import { LineSeries, XYChart, ValueAxis, DateAxis, XYCursor } from "@amcharts/amcharts4/charts";
