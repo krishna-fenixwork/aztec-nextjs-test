@@ -15,6 +15,19 @@ const ForcastingGraph = ({
     forcatsMarketStartDate,
     forcatstMarketEndDate,
     forcatstMarketNextDate,
+}:{
+    chart_data_market:any,
+    chart_data_company:any,
+    selectedMarketFactor:any,
+    setSelectedMarketFactor:any,
+    selectedCompFactor:any,
+    setSelectedCompFactor:any,
+    forcatstCompStartDate:any,
+    forcatstCompEndDate:any,
+    forcatstCompNextDate:any,
+    forcatsMarketStartDate:any,
+    forcatstMarketEndDate:any,
+    forcatstMarketNextDate:any,
 }) => {
 
     const [marketFactor, setMarketFactor] = useState([])
@@ -28,7 +41,7 @@ const ForcastingGraph = ({
                     <ForcastingGraphComponent
                         data={chart_data_market}
                         id={"chartdiv_market"}
-                        name={"Market Factor"}
+                        name="Market Factor"
                         selectedFactor={selectedMarketFactor}
                         startDate={forcatsMarketStartDate}
                         nextDate={forcatstMarketNextDate}
@@ -42,7 +55,7 @@ const ForcastingGraph = ({
                     <ForcastingGraphComponent
                         data={chart_data_company}
                         id={"chartdiv_company"}
-                        name={"Company Performance"}
+                        name="Company Performance"
                         selectedFactor={selectedCompFactor}
                         startDate={forcatstCompStartDate}
                         nextDate={forcatstCompNextDate}

@@ -1,19 +1,22 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { getAutoCompleteForecasting, getFundGraph } from "../../../api/api";
 // import { ReactComponent as SearchAdmin } from '../../aseets/ic_search_simulation.svg';
 
-const SimulationAutocomplete = ({ selectedFundOption, setSelectedOption, period, setPeriod, reset, showSelection }) => {
+const SimulationAutocomplete = ({ selectedFundOption, setSelectedOption, period, setPeriod, reset, showSelection } :
+    { selectedFundOption:any, setSelectedOption:any, period:any, setPeriod:any, reset:any, showSelection:any }) => {
 
     const [inputValue, setInputValue] = React.useState('');
     const [options, setOptions] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [isSelectionGoing, setIsSelectionGoing] = React.useState(false);
 
-    const onInputChange = (e) => {
+    const onInputChange = (e:any) => {
         // console.log(e);
         setInputValue(e.target.value);
         setIsSelectionGoing(true);
-        document?.getElementById('autoCom_options').style.display = 'block';
+        // @ts-ignore: Object is possibly 'null'.
+        document.getElementById('autoCom_options').style.display = 'block';
         if (e.target.value.length > 0) {
             setLoading(true);
             getAutoCompleteForecasting(e.target.value).then(response => {
@@ -21,19 +24,22 @@ const SimulationAutocomplete = ({ selectedFundOption, setSelectedOption, period,
                 setOptions(response)
             }).catch(error => {
                 setOptions([])
-                document?.getElementById('autoCom_options').style.display = 'none';
+                // @ts-ignore: Object is possibly 'null'.
+                document.getElementById('autoCom_options').style.display = 'none';
             });
         } else if (e.target.value.length === 0) {
             setOptions([]);
             setIsSelectionGoing(false);
-            document?.getElementById('autoCom_options').style.display = 'none';
+            // @ts-ignore: Object is possibly 'null'.
+            document.getElementById('autoCom_options').style.display = 'none';
         }
     }
 
-    const onOptionSelect = (option) => {
+    const onOptionSelect = (option:any) => {
         getFundGraph(option.uuid).then(response => {
             setIsSelectionGoing(false);
             setInputValue(option?.name);
+            // @ts-ignore: Object is possibly 'null'.
             document?.getElementById('autoCom_options').style.display = 'none';
             option.entities = []
             option.macro_trends = []
@@ -45,6 +51,7 @@ const SimulationAutocomplete = ({ selectedFundOption, setSelectedOption, period,
 
             setSelectedOption(option);
         }).catch(error => {
+            // @ts-ignore: Object is possibly 'null'.
             document?.getElementById('autoCom_options').style.display = 'none';
         });
     }
@@ -94,8 +101,8 @@ const SimulationAutocomplete = ({ selectedFundOption, setSelectedOption, period,
                                 )
                             }
                             {
-                                !loading && options && options.length > 0 && options.map((item, key) => (
-                                    <div>
+                                !loading && options && options.length > 0 && options.map((item:any, key:any) => (
+                                    <div key={key}>
                                         {
 
                                             <div key={key} onClick={() => onOptionSelect(item)} className={key % 2 === 0 ? "cac_automcomplete_option_even d-flex" : "cac_automcomplete_option_odd d-flex"}>

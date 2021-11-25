@@ -5,18 +5,18 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { columns } from './fundConfig';
 
-const AGGridSSR = ({ quarterlyData }) => {
+const AGGridSSR = ({ quarterlyData } : {quarterlyData:any}) => {
 
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
 
-    const onGridReady = (params) => {
+    const onGridReady = (params:any) => {
         setGridApi(params.api);
         setGridColumnApi(params.columnApi);
     
         var dataSource = {
             rowCount: null,
-            getRows: function (params) {
+            getRows: function (params:any) {
                 console.log('asking for ' + params.startRow + ' to ' + params.endRow);
                 setTimeout(function () {
                     var rowsThisPage = quarterlyData.slice(params.startRow, params.endRow);
@@ -35,9 +35,9 @@ const AGGridSSR = ({ quarterlyData }) => {
         //   .then((data) => updateData(data));
     };
 
-    function createServerSideDatasource(server) {
+    function createServerSideDatasource(server:any) {
         return {
-            getRows: function (params) {
+            getRows: function (params:any) {
                 console.log('[Datasource] - rows requested by grid: ', params.request);
                 var response = server.getData(params.request);
                 setTimeout(function () {
@@ -51,9 +51,9 @@ const AGGridSSR = ({ quarterlyData }) => {
         };
     }
 
-    function createFakeServer(allData) {
+    function createFakeServer(allData:any) {
         return {
-            getData: function (request) {
+            getData: function (request:any) {
                 var requestedRows = allData.slice();
                 return {
                     success: true,
@@ -77,7 +77,7 @@ const AGGridSSR = ({ quarterlyData }) => {
                     <AgGridReact
                         columnDefs={columns}
                         components={{
-                            loadingRenderer: function (params) {
+                            loadingRenderer: function (params:any) {
                                 if (params.value !== undefined) {
                                     return params.value;
                                 } else {

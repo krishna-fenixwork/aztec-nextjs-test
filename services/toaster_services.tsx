@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-const toastOptions = {
+const toastOptions:any = {
     position: "top-right",
     autoClose: 2000,
     hideProgressBar: true,
@@ -10,8 +10,8 @@ const toastOptions = {
     progress: undefined,
 }
 
-export const notifySuccess = (notifSuccessMsg) => toast.success(notifSuccessMsg, toastOptions);
+export const notifySuccess = (notifSuccessMsg:any) => toast.success(notifSuccessMsg, toastOptions);
  
-export const notifyError = (notifErrorMsg) => toast.error(notifErrorMsg, toastOptions);
+export const notifyError = (notifErrorMsg:any) => toast.error(notifErrorMsg, toastOptions);
  
-export const notifyInfo = (notifInfoMsg) => toast.info(notifInfoMsg, toastOptions);
+export const notifyInfo = (notifInfoMsg:any) => toast.info(notifInfoMsg, toastOptions);

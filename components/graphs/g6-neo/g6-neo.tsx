@@ -12,16 +12,16 @@ const vix = {
 }
 
 const G6Neo = () => {
-    const viz = useRef(null);  
-    const g6Graph = useRef(null);  
-    const zoomedNode = useRef('');
-    const relations = 'PART_OF|INVESTED_INTO|INVESTMENT_OF|FUNDINGROUND_OF|NO_OF_EMPLOYEES';  
+    const viz:any = useRef(null);  
+    const g6Graph:any = useRef(null);  
+    const zoomedNode:any = useRef('');
+    const relations:any = 'PART_OF|INVESTED_INTO|INVESTMENT_OF|FUNDINGROUND_OF|NO_OF_EMPLOYEES';  
     // g6 test
     const [g6Nodes, setg6Nodes] = useState([]);
     const [g6Edges, setg6Edges] = useState([]);    
 
     useEffect(() => {        
-        const vis = new NeoVis({
+        const vis:any = new NeoVis({
             container_id: "viz",
             initial_cypher: INICIAL_CYPHER,
             ...NEO4JCONFIG           
@@ -34,32 +34,29 @@ const G6Neo = () => {
 
         vis.render();
 
-        const minimap = new G6.Minimap({
+        const minimap:any = new G6.Minimap({
             size: [ 100, 100 ],
             className: "minimap",
             type: 'delegate'
         });
                           
-        const menu = new G6.Menu({
-            offsetX: 10,
-            offsetY: 20,
-            itemTypes: ['node'],
-            getContent(e, g6_graph) {
-                const outDiv = document.createElement('div');
-                outDiv.style.width = '180px';
-                outDiv.innerHTML = `<ul>
-                    <li>menu 1</li>
-                    <li>menu 2</li>
-                    <li>menu 3</li>
-                    <li>menu 4</li>
-                    <li>menu 5</li>
-                    </ul>`
-                return outDiv
-            },
-            handleMenuClick(target, item, _graph) {
-                // console.log(target, item, _graph)
-            },
-        });                           
+        // const menu:any = new G6.Menu({
+        //     offsetX: 10,
+        //     offsetY: 20,
+        //     itemTypes: ['node'],
+        //     getContent(e:any, g6_graph:any) {
+        //         const outDiv = document.createElement('div');
+        //         outDiv.style.width = '180px';
+        //         outDiv.innerHTML = `<ul>
+        //             <li>menu 1</li>
+        //             <li>menu 2</li>
+        //             <li>menu 3</li>
+        //             <li>menu 4</li>
+        //             <li>menu 5</li>
+        //             </ul>`
+        //         return outDiv
+        //     },        
+        // });                           
 
         let graph = new G6.Graph({
             container: 'mountNode',
@@ -94,7 +91,7 @@ const G6Neo = () => {
                     }
                 ],
             },
-            plugins: [ minimap, menu],            
+            plugins: [ minimap],            
             defaultNode: {
                 labelCfg: {
                     position: 'bottom',
@@ -151,7 +148,7 @@ const G6Neo = () => {
 
         // events
         // Mouse enter a node
-        graph.on('node:mouseenter', (e) => {
+        graph.on('node:mouseenter', (e:any) => {
             const nodeItem = e.item; // Get the target item
             // console.log(e.item?._cfg?.id)
             zoomedNode.current = e.item?._cfg?.id;
@@ -159,13 +156,13 @@ const G6Neo = () => {
         });
 
         // Mouse leave a node
-        graph.on('node:mouseleave', (e) => {
+        graph.on('node:mouseleave', (e:any) => {
             const nodeItem = e.item; // Get the target item
             graph.setItemState(nodeItem, 'hover', false); // Set the state 'hover' of the item to be false
         });       
 
         // Click a node
-        graph.on('node:click', (e) => {
+        graph.on('node:click', (e:any) => {
             // Swich the 'click' state of the node to be false
             const clickNodes = graph.findAllByState('node', 'click');
             clickNodes.forEach((cn) => {
@@ -177,7 +174,7 @@ const G6Neo = () => {
         });
 
         // Click an edge
-        graph.on('edge:click', (e) => {
+        graph.on('edge:click', (e:any) => {
             // Swich the 'click' state of the edge to be false
             const clickEdges = graph.findAllByState('edge', 'click');
             clickEdges.forEach((ce) => {
@@ -187,7 +184,7 @@ const G6Neo = () => {
             graph.setItemState(edgeItem, 'click', true); // Set the state 'click' of the item to be true
         });
 
-        graph.on('wheelzoom', (e) => {
+        graph.on('wheelzoom', (e:any) => {
             e.stopPropagation();            
             const zoom = graph.getZoom().toFixed(1);            
             if(zoom === '1.5' && zoomedNode.current){
@@ -198,14 +195,15 @@ const G6Neo = () => {
         });
 
         g6Graph.current = graph;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])                
 
     const setNodesAndEdges = () => {
-        const nodes = [];
-        const edges = [];
+        const nodes:any = [];
+        const edges:any = [];
         // const timelineData = [];
-        let allNodes = g6Nodes;
-        let allEdges = g6Edges;        
+        let allNodes:any = g6Nodes;
+        let allEdges:any = g6Edges;        
         console.log(viz.current['_nodes']);
         for (const obj in viz.current['_nodes']) {
             const element = viz.current['_nodes'][obj];
@@ -267,7 +265,7 @@ const G6Neo = () => {
         // g6Graph.current.addPlugin(timebarPlugin)
     }
 
-    const onNodeAction = (action_type, nodeId) => {        
+    const onNodeAction = (action_type:any, nodeId:any) => {        
         if(viz.current["_nodes"][nodeId]){
             const uuid = viz.current["_nodes"][nodeId].raw.properties.uuid;
             const node_label = viz.current["_nodes"][nodeId]?.raw?.labels[0];                    

@@ -3,11 +3,11 @@ import kpiStyles from './kpi-box.module.css';
 import { Grid } from '@material-ui/core';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
-const KPIBOX = ({ kpiData }) => {
+const KPIBOX = ({ kpiData } : { kpiData:any }) => {
 
     const [kpi_data, setKPIData] = React.useState(kpiData);
 
-    const changeBenchmark = (elemIndex, activeIndex) => {
+    const changeBenchmark = (elemIndex:any, activeIndex:any) => {
         const tData = [...kpi_data];
         console.log(tData);
         if (activeIndex === (tData[elemIndex].Quarter.length - 1))
@@ -22,7 +22,7 @@ const KPIBOX = ({ kpiData }) => {
         <div className="kpi__box d-flex flex-wrap">
             <Grid container spacing={4} className='grid-stack ps-3'>
             {
-                kpi_data.map((item, index) => (
+                kpi_data.map((item:any, index:any) => (
                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3} className='grid-stack-item' key={index}>
                         <div className={kpiStyles.fund_gradient__bg}>
                             <div className={kpiStyles.fund_dark_gradient}>
@@ -36,7 +36,7 @@ const KPIBOX = ({ kpiData }) => {
                                             <div>
                                                 <div style={{ marginTop: 6 }}>
                                                     <div className={kpiStyles.az_stats_stepper}>
-                                                        {item.Quarter.map((label, _index) => (
+                                                        {item.Quarter.map((label:any, _index:any) => (
                                                             <div key={_index} className={`${kpiStyles.stepper__step} ${_index === item?.active_index ? `${kpiStyles.active_steeper}` : ''}`}></div>
                                                         ))}
                                                     </div>
@@ -60,7 +60,7 @@ const KPIBOX = ({ kpiData }) => {
                                         </div>
                                     </div>
                                     <div id={`ag_spark_${index}_anim`} className={kpiStyles.fund_stastics_graph} style={{ paddingBottom: '12px' }}>
-                                        <Sparklines className='sparkline' data={item.Quarter[item.active_index].statistics} style={{ display: 'flex' }}>
+                                        <Sparklines data={item.Quarter[item.active_index].statistics} style={{ display: 'flex' }}>
                                             <SparklinesLine style={{ strokeWidth: 2, stroke: `#1ee8b7`, fill: `#1ee8b7` }} />
                                         </Sparklines>
                                     </div>

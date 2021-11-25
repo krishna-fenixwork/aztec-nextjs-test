@@ -19,6 +19,9 @@ import { LOGINURL } from '../../../constants/envConstants';
 const LoginPage = ({
     startRegister,
     signInWithEmail,
+}:{
+    startRegister:any,
+    signInWithEmail:any,
 }) => {
     const [isLoading, setIsLoading] = useState(false)
 
@@ -28,8 +31,7 @@ const LoginPage = ({
             color: '#ffffff',
             borderWidth: 1,
         },
-        '& input:invalid + fieldset': {
-            borderColor: 'red',
+        '& input:invalid + fieldset': {            
             color: '#ffffff',
             borderWidth: 2,
             borderColor: '#1ee8b7',
@@ -97,6 +99,7 @@ const LoginPage = ({
 
         return () => unregisterAuthObserver();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const signOutUser = () => {
@@ -105,7 +108,7 @@ const LoginPage = ({
         window.location.reload();
     }
 
-    const checkUserIsUserExistLink = (uid, email, verification_code) => {
+    const checkUserIsUserExistLink = (uid:any, email:any, verification_code:any) => {
         setIsLoading(true)
         getUserData(uid).then(response => {
             setIsLoading(false)
@@ -119,7 +122,7 @@ const LoginPage = ({
         })
     }
 
-    const checkUserIsUserExist = (user) => {
+    const checkUserIsUserExist = (user:any) => {
         setIsLoading(true)
         getUserData(user.uid).then(response => {
             setIsLoading(false)
@@ -138,7 +141,7 @@ const LoginPage = ({
     }
 
 
-    const setVerified = (user, verification_code) => {
+    const setVerified = (user:any, verification_code:any) => {
         verifyUser(user.uid, verification_code
         ).then(response => {
             setIsLoading(false)
@@ -150,7 +153,7 @@ const LoginPage = ({
         })
     }
 
-    const sendEmailLink = (user, uid, verification_code) => {
+    const sendEmailLink = (user:any, uid:any, verification_code:any) => {
         var url_test = LOGINURL + `?uid=${uid}&email=${user.email}&verification_code=${verification_code}`
         var actionCodeSettings = {
             url: url_test,
@@ -174,7 +177,7 @@ const LoginPage = ({
 
     return (
         <div id="grad">
-            <Image src={logo} centered />
+            <Image src={logo} alt="" />
             {isLoading ?
                 <CircularProgress /> :
                 <div style={{ width: "350px" }}>

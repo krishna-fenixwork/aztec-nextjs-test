@@ -24,7 +24,9 @@ const client = new ApolloClient({
 
 const clientSideEmotionCache = createEmotionCache();
 
-const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache}) => {    
+const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache}: {
+    Component: any, pageProps: any, emotionCache: any
+}) => {    
     return (
         <CacheProvider value={emotionCache}>
             <Head>

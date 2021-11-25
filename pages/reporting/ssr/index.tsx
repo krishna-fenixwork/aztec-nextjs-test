@@ -6,7 +6,7 @@ import { GetServerSideProps } from 'next';
 const KPIBOX = dynamic(() => import("../../../components/reporting/kpi-boxes/kpi-box"), { ssr: false });
 const AGGridSSR = dynamic(() => import("../../../components/reporting/ag-grid-table/ag_grid_ssr"), { ssr: false });
 
-const ReportingSSR = ({ kpi_data, quarterly_data }) => {   
+const ReportingSSR = ({ kpi_data, quarterly_data }:{ kpi_data:any, quarterly_data:any }) => {   
 
     // const { data } = useQuery(kpi_response)
     

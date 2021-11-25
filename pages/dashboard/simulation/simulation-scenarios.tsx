@@ -6,7 +6,9 @@ import jsbayes from 'jsbayes';
 
 const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
     selectedMacroFactor,
-    selectedTrendFactor }) => {
+    selectedTrendFactor }:{ predictedData:any, onSliderChange:any, entities:any, trends:any,
+        selectedMacroFactor:any,
+        selectedTrendFactor:any }) => {
 
     const SCENARIOS = ['Optimistic scenario', 'Median scenario', 'Pessimistic scenario']
     // const SCENARIO_SLIDERS = ['Economic growth rates', 'Consumer index', 'Country stock index',
@@ -14,12 +16,12 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
     // const [sliders, setSliders] = React.useState(SCENARIO_SLIDERS);
     const [isOnLoad, setIsOnLoad] = React.useState(true);
 
-    const [listScenario, setScenario] = React.useState(null);
+    const [listScenario, setScenario] = React.useState<any>(null);
 
     const [selectedScenario, setSelectedScenario] = React.useState(0)
 
-    let pridictionData = [];
-    let tableData = {
+    let pridictionData:any = [];
+    let tableData:any = {
         revenue: [],
         employees: [],
         digital_footprint: [],
@@ -27,9 +29,9 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
     };
 
     React.useEffect(() => {
-        let data = [];
+        let data:any = [];
         for (var j = 0; j < SCENARIOS.length; j++) {
-            var dataS = {
+            var dataS:any = {
                 name: SCENARIOS[j]
             }
             console.log(selectedMacroFactor);
@@ -72,32 +74,32 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [predictedData, listScenario])
 
-    function getRandomArbitrary(min, max) {
+    function getRandomArbitrary(min:any, max:any) {
         return Math.random() * (max - min) + min;
     }
 
-    function getRandomInt(min, max) {
+    function getRandomInt(min:any, max:any) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    const onScenarioChange = (event, value, scenario_index, slider_length) => {
+    const onScenarioChange = (event:any, value:any, scenario_index:any, slider_length:any) => {
 
         pridictionData = [];
         setIsOnLoad(false);
-        console.log(value, scenario_index);
-        var g = jsbayes.newGraph();
+        
+        var g:any = jsbayes.newGraph();
 
         var model_obj = predictedData["model"];
 
         var structure = model_obj['structure'];
-        var nodes = [];
+        var nodes:any = [];
         const maxs = predictedData["maxs"];
         const mins = predictedData["mins"];
 
-        model_obj['states'].forEach((element, j) => {
-            var n1 = g.addNode(element['name'], ['0', '1', '2', '3', '4']);
+        model_obj['states'].forEach((element:any, j:any) => {
+            var n1:any = g.addNode(element['name'], ['0', '1', '2', '3', '4']);
             nodes.push(n1);
             if (element['distribution']) {
                 if (element['distribution']['parents']) {
@@ -136,11 +138,12 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
         // Take value between 0 and 1, and round it to 1 digit, 0.1/0,2/0.3
         //  Default slider value - 0.5
 
-        var slider_val = value;
-        const discretes = ["0", "1", "2", "3", "4"];
+        var slider_val:any = value;
+        const discretes:any = ["0", "1", "2", "3", "4"];
 
         for (let index = 0; index < slider_length; index++) {
-            g.observe(String(index), discretes[parseInt(slider_val * 5)]);
+            // g.observe(String(index), discretes[parseInt(slider_val * 5)]);
+            g.observe(String(index), discretes[0]);
         }
         g.saveSamples = true;
 
@@ -195,32 +198,32 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
 
     }
 
-    const calculatePredictData = (g, scenario, maxs, mins, slideLength) => {
+    const calculatePredictData = (g:any, scenario:any, maxs:any, mins:any, slideLength:any) => {
 
-        g.sample(10000).then(function (r) {
+        g.sample(10000).then(function (r:any) {
             var samples = g.samples;
             var numSliders = slideLength;
             // console.log(numSliders)
-            var predictions = {};
+            var predictions:any = {};
             predictions[`${numSliders}`] = [0, 0, 0, 0, 0];
             predictions[`${numSliders + 1}`] = [0, 0, 0, 0, 0];
             predictions[`${numSliders + 2}`] = [0, 0, 0, 0, 0];
             predictions[`${numSliders + 3}`] = [0, 0, 0, 0, 0];
             // console.log(predictions)
 
-            var preds = {}
+            var preds:any = {}
             // console.log(samples);
             for (var i = samples.length - 1; i >= 0; i--) {
-                var sample = samples[i];
+                var sample:any = samples[i];
                 predictions[`${numSliders}`][parseInt(sample[`${numSliders}`])] += 1
                 predictions[`${numSliders + 1}`][parseInt(sample[`${numSliders + 1}`])] += 1
                 predictions[`${numSliders + 2}`][parseInt(sample[`${numSliders + 2}`])] += 1
                 predictions[`${numSliders + 3}`][parseInt(sample[`${numSliders + 3}`])] += 1
             }
-            preds["digital_footprint"] = predictions[`${numSliders}`].reduce((iMax, x, j, arr) => x > arr[iMax] ? j : iMax, 0);
-            preds["employees"] = predictions[`${numSliders + 1}`].reduce((iMax, x, k, arr) => x > arr[iMax] ? k : iMax, 0);
-            preds["revenue"] = predictions[`${numSliders + 2}`].reduce((iMax, x, l, arr) => x > arr[iMax] ? l : iMax, 0);
-            preds["social_score"] = predictions[`${numSliders + 3}`].reduce((iMax, x, m, arr) => x > arr[iMax] ? m : iMax, 0);
+            preds["digital_footprint"] = predictions[`${numSliders}`].reduce((iMax:any, x:any, j:any, arr:any) => x > arr[iMax] ? j : iMax, 0);
+            preds["employees"] = predictions[`${numSliders + 1}`].reduce((iMax:any, x:any, k:any, arr:any) => x > arr[iMax] ? k : iMax, 0);
+            preds["revenue"] = predictions[`${numSliders + 2}`].reduce((iMax:any, x:any, l:any, arr:any) => x > arr[iMax] ? l : iMax, 0);
+            preds["social_score"] = predictions[`${numSliders + 3}`].reduce((iMax:any, x:any, m:any, arr:any) => x > arr[iMax] ? m : iMax, 0);
             // console.log(samples);
             // console.log(preds);
 
@@ -259,12 +262,12 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
 
     }
 
-    const changeScenario = (index) => {
+    const changeScenario = (index:any) => {
         setSelectedScenario(index)
     }
 
-    const setSliderValue = (value, index) => {
-        var data = listScenario
+    const setSliderValue = (value:any, index:any) => {
+        var data:any = listScenario
         data[selectedScenario].slider[index].value = value
         setScenario(data)
     }
@@ -287,9 +290,9 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
                                 </svg>
                             ) : (
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.5 7.5V9.5C10.5 9.76522 10.3946 10.0196 10.2071 10.2071C10.0196 10.3946 9.76522 10.5 9.5 10.5H2.5C2.23478 10.5 1.98043 10.3946 1.79289 10.2071C1.60536 10.0196 1.5 9.76522 1.5 9.5V7.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M3.5 5L6 7.5L8.5 5" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6 7.5V1.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M10.5 7.5V9.5C10.5 9.76522 10.3946 10.0196 10.2071 10.2071C10.0196 10.3946 9.76522 10.5 9.5 10.5H2.5C2.23478 10.5 1.98043 10.3946 1.79289 10.2071C1.60536 10.0196 1.5 9.76522 1.5 9.5V7.5" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M3.5 5L6 7.5L8.5 5" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M6 7.5V1.5" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             )
                         }
@@ -301,7 +304,7 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
                                 listScenario &&
                                 listScenario[selectedScenario] &&
                                 listScenario[selectedScenario].slider) &&
-                            listScenario[selectedScenario].slider.map((sce_item, sce_index) => (
+                            listScenario[selectedScenario].slider.map((sce_item:any, sce_index:any) => (
                                 <div className="d-flex justify-content-around align-items-center" key={sce_index} style={{ marginBottom: "20px" }}>
                                     <div className="sce_slider">
 
@@ -314,8 +317,8 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
                                     </div>
                                     <div className="mt-2">
                                         <svg width="12" height="12" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6.33333 4.00146H1.66667C1.29848 4.00146 1 4.30009 1 4.66846V7.00296C1 7.37134 1.29848 7.66997 1.66667 7.66997H6.33333C6.70152 7.66997 7 7.37134 7 7.00296V4.66846C7 4.30009 6.70152 4.00146 6.33333 4.00146Z" stroke={`${selectedScenario === 0 ? '#1EE8B7' : 'white'}`} stroke-opacity={`${selectedScenario === 0 ? 1 : 0.5}`} stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M2.3335 4.0015V2.6675C2.3335 2.22525 2.50909 1.80112 2.82165 1.4884C3.13421 1.17568 3.55814 1 4.00016 1C4.44219 1 4.86611 1.17568 5.17867 1.4884C5.49123 1.80112 5.66683 2.22525 5.66683 2.6675V4.0015" stroke={`${selectedScenario === 0 ? '#1EE8B7' : 'white'}`} stroke-opacity={`${selectedScenario === 0 ? 1 : 0.5}`} stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M6.33333 4.00146H1.66667C1.29848 4.00146 1 4.30009 1 4.66846V7.00296C1 7.37134 1.29848 7.66997 1.66667 7.66997H6.33333C6.70152 7.66997 7 7.37134 7 7.00296V4.66846C7 4.30009 6.70152 4.00146 6.33333 4.00146Z" stroke={`${selectedScenario === 0 ? '#1EE8B7' : 'white'}`} strokeOpacity={`${selectedScenario === 0 ? 1 : 0.5}`} strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M2.3335 4.0015V2.6675C2.3335 2.22525 2.50909 1.80112 2.82165 1.4884C3.13421 1.17568 3.55814 1 4.00016 1C4.44219 1 4.86611 1.17568 5.17867 1.4884C5.49123 1.80112 5.66683 2.22525 5.66683 2.6675V4.0015" stroke={`${selectedScenario === 0 ? '#1EE8B7' : 'white'}`} strokeOpacity={`${selectedScenario === 0 ? 1 : 0.5}`} strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                     </div>
                                 </div>
@@ -328,9 +331,9 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
                 <div className="d-flex justify-content-between align-items-center" style={{ marginTop: "20px" }}>
 
                     {
-                        listScenario && listScenario.map((item, index) => (
+                        listScenario && listScenario.map((item:any, index:any) => (
 
-                            <div>
+                            <div key={index}>
                                 {
                                     <div className="div_hand" onClick={() =>
                                         changeScenario(index)
@@ -339,9 +342,9 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
                                             item.name === SCENARIOS[0] &&
 
                                             <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M7 17V7" stroke={item.name === listScenario[selectedScenario].name ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M13 17V1" stroke={item.name === listScenario[selectedScenario].name ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M1 17V13" stroke={item.name === listScenario[selectedScenario].name ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M7 17V7" stroke={item.name === listScenario[selectedScenario].name ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M13 17V1" stroke={item.name === listScenario[selectedScenario].name ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M1 17V13" stroke={item.name === listScenario[selectedScenario].name ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
 
                                         }
@@ -354,9 +357,9 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
                                         {
                                             item.name === SCENARIOS[1] &&
                                             <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M7 11V1" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M13 11V1" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M1 11V1" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M7 11V1" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M13 11V1" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M1 11V1" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                             // <IcMiddle style={{ height: "20px", width: "20px" }} stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} />
                                         }
@@ -369,9 +372,9 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
                                         {
                                             item.name === SCENARIOS[2] &&
                                             <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M7 17V7" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M13 17V13" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M1 17V1" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M7 17V7" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M13 17V13" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M1 17V1" stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                             // <IcNegetive style={{ height: "20px", width: "20px" }} stroke={item.name === SCENARIOS[selectedScenario] ? '#fff' : 'rgba(255, 255, 255, 0.3)'} />
                                         }
@@ -389,9 +392,9 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
                             //                 </svg>
                             //             ) : (
                             //                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            //                     <path d="M10.5 7.5V9.5C10.5 9.76522 10.3946 10.0196 10.2071 10.2071C10.0196 10.3946 9.76522 10.5 9.5 10.5H2.5C2.23478 10.5 1.98043 10.3946 1.79289 10.2071C1.60536 10.0196 1.5 9.76522 1.5 9.5V7.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-                            //                     <path d="M3.5 5L6 7.5L8.5 5" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-                            //                     <path d="M6 7.5V1.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                            //                     <path d="M10.5 7.5V9.5C10.5 9.76522 10.3946 10.0196 10.2071 10.2071C10.0196 10.3946 9.76522 10.5 9.5 10.5H2.5C2.23478 10.5 1.98043 10.3946 1.79289 10.2071C1.60536 10.0196 1.5 9.76522 1.5 9.5V7.5" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                            //                     <path d="M3.5 5L6 7.5L8.5 5" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                            //                     <path d="M6 7.5V1.5" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
                             //                 </svg>
                             //             )
                             //         }
@@ -399,10 +402,10 @@ const SimulationScenarios = ({ predictedData, onSliderChange, entities, trends,
 
                             //     <div className="sm_sce_delete">
                             //         <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            //             <path d="M1 2.75H1.91667H9.25" stroke="white" stroke-opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                            //             <path d="M3.29175 2.74984V1.83317C3.29175 1.59006 3.38833 1.3569 3.56023 1.18499C3.73214 1.01308 3.9653 0.916504 4.20842 0.916504H6.04175C6.28486 0.916504 6.51802 1.01308 6.68993 1.18499C6.86184 1.3569 6.95842 1.59006 6.95842 1.83317V2.74984M8.33342 2.74984V9.1665C8.33342 9.40962 8.23684 9.64278 8.06493 9.81469C7.89302 9.98659 7.65986 10.0832 7.41675 10.0832H2.83341C2.5903 10.0832 2.35714 9.98659 2.18523 9.81469C2.01333 9.64278 1.91675 9.40962 1.91675 9.1665V2.74984H8.33342Z" stroke="white" stroke-opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                            //             <path d="M4.20825 5.0415V7.7915" stroke="white" stroke-opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                            //             <path d="M6.04175 5.0415V7.7915" stroke="white" stroke-opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
+                            //             <path d="M1 2.75H1.91667H9.25" stroke="white" strokeOpacity="0.5" strokeLinecap="round" strokeLinejoin="round" />
+                            //             <path d="M3.29175 2.74984V1.83317C3.29175 1.59006 3.38833 1.3569 3.56023 1.18499C3.73214 1.01308 3.9653 0.916504 4.20842 0.916504H6.04175C6.28486 0.916504 6.51802 1.01308 6.68993 1.18499C6.86184 1.3569 6.95842 1.59006 6.95842 1.83317V2.74984M8.33342 2.74984V9.1665C8.33342 9.40962 8.23684 9.64278 8.06493 9.81469C7.89302 9.98659 7.65986 10.0832 7.41675 10.0832H2.83341C2.5903 10.0832 2.35714 9.98659 2.18523 9.81469C2.01333 9.64278 1.91675 9.40962 1.91675 9.1665V2.74984H8.33342Z" stroke="white" strokeOpacity="0.5" strokeLinecap="round" strokeLinejoin="round" />
+                            //             <path d="M4.20825 5.0415V7.7915" stroke="white" strokeOpacity="0.5" strokeLinecap="round" strokeLinejoin="round" />
+                            //             <path d="M6.04175 5.0415V7.7915" stroke="white" strokeOpacity="0.5" strokeLinecap="round" strokeLinejoin="round" />
                             //         </svg>
                             //     </div>
                             // </div>

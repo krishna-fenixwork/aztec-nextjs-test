@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import Image from 'next/image'
 import home_logo from '../../aseets/ic_home_logo.png';
 import { useState } from 'react';
@@ -15,7 +16,7 @@ const WelcomePage = () => {
 
     const [headSelected, setHeadSelected] = useState(CONST.SOLUTION)
 
-    const handleHeaderClick = (TYPE) => {
+    const handleHeaderClick = (TYPE:any) => {
         setHeadSelected(TYPE)
         if (TYPE === CONST.LOGIN) {
             router.push(LOGIN)
@@ -82,7 +83,7 @@ const WelcomePage = () => {
 
                         </div>
 
-                        <iframe src='https://my.spline.design/homepage3dnew-595e83ecdaab876f8f9e46d54d920132/' frameborder='0' width="90%" height="500" title="Spline"></iframe>
+                        <iframe src='https://my.spline.design/homepage3dnew-595e83ecdaab876f8f9e46d54d920132/' frameBorder='0' width="90%" height="500" title="Spline"></iframe>
 
                     </div>
 

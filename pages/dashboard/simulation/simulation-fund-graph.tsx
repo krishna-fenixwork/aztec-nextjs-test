@@ -6,6 +6,11 @@ const SimulationFundGraph = ({
     trends,
     selectedMacroFactor,
     selectedTrendFactor
+}:{
+    entities:any,
+    trends:any,
+    selectedMacroFactor:any,
+    selectedTrendFactor:any
 }) => {
     return (
         <div id="sme_simulation_graph" className="position-relative">

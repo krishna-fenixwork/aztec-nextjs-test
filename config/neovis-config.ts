@@ -12,7 +12,7 @@ const RELATIONSHIP_OPTIONS = {
     "caption": false,                            
 }
 
-export const NEO4JCONFIG = {    
+export const NEO4JCONFIG:any = {    
     server_url: neo4jUri,
     server_user: 'neo4j',
     server_password: pass,

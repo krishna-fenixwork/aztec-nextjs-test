@@ -5,7 +5,7 @@ import am4themes_dark from "@amcharts/amcharts4/themes/dark";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 
-const SimulationBarChart = ({ id, barData, setChart }) => {
+const SimulationBarChart = ({ id, barData, setChart }:{ id:any, barData:any, setChart:any }) => {
 
     am4core.useTheme(am4themes_animated);
     am4core.useTheme(am4themes_dark);
@@ -66,7 +66,7 @@ const SimulationBarChart = ({ id, barData, setChart }) => {
 
             chart.data = barData.length > 0 ? barData : DUMMY_DATA;
 
-            const createSeries = (value, name) => {
+            const createSeries = (value:any, name:any) => {
                 // var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
                 // valueAxis.tooltip.disabled = true;  
 
@@ -93,7 +93,7 @@ const SimulationBarChart = ({ id, barData, setChart }) => {
 
             const arrangeColumns = () => {
 
-                let series = chart.series.getIndex(0);
+                let series:any = chart.series.getIndex(0);
 
                 let w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
                 if (series.dataItems.length > 1) {

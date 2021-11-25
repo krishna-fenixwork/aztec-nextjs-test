@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import { Slider } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import Popup from 'reactjs-popup'
@@ -26,6 +28,18 @@ const CompanyDetails = ({
     setSelectedMacroFactor,
     selectedTrendFactor,
     setSelectedTrendFactor,
+}:{
+    CompanyData:any,
+    period:any,
+    setPeriod:any,
+    showSelection:any,
+    startForcasting:any,
+    macroTrend:any,
+    entities:any,
+    selectedMacroFactor:any,
+    setSelectedMacroFactor:any,
+    selectedTrendFactor:any,
+    setSelectedTrendFactor:any,
 }) => {
 
     const [macroTrends, setMacroTrend] = useState([])
@@ -45,7 +59,7 @@ const CompanyDetails = ({
     const [openPopupMacro, setOpenPopupMacro] = useState(false);
     const [openPopupTrend, setOpenPopupTrend] = useState(false);
 
-    const changePeriod = (event, value) => {
+    const changePeriod = (event:any, value:any) => {
         setPeriod(value)
     }
 
@@ -88,9 +102,9 @@ const CompanyDetails = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [CompanyData, macroTrend, entities])
 
-    const selectMacro = (data) => {
-        var dataTrend = macroTrends
-        var dataTemp = macroTrends.find(o => o.macro_trend === data.macro_trend)
+    const selectMacro = (data:any) => {
+        var dataTrend:any = macroTrends
+        var dataTemp:any = macroTrends.find((o:{ macro_trend: string }) => o.macro_trend === data.macro_trend)
 
         if (!dataTrend.includes(dataTemp)) {
             dataTrend.push(data)
@@ -99,7 +113,7 @@ const CompanyDetails = ({
         }
 
         var list = selectedMacroFactor
-        var dataT = selectedMacroFactor.find(o => o.macro_trend === data.macro_trend)
+        var dataT = selectedMacroFactor.find((o:{ macro_trend: string }) => o.macro_trend === data.macro_trend)
 
         if (list.includes(dataT)) {
             const index = list.indexOf(dataT);
@@ -114,11 +128,11 @@ const CompanyDetails = ({
         setIsChange(!isChange)
     }
 
-    const selectTrend = (data) => {
-        var dataM = selectedTrendFactor
-        var dataTrend = trends
-        var dataT = selectedTrendFactor.find(o => o === data)
-        var dataTemp = trends.find(o => o === data)
+    const selectTrend = (data:any) => {
+        var dataM:any = selectedTrendFactor
+        var dataTrend:any = trends
+        var dataT:any = selectedTrendFactor.find((o: any) => o === data)
+        var dataTemp:any = trends.find(o => o === data)
 
         if (!dataTrend.includes(dataTemp)) {
             dataTrend.push(data)
@@ -139,12 +153,12 @@ const CompanyDetails = ({
         setIsChange(!isChange)
     }
 
-    const onInputChangeMacro = (e) => {
+    const onInputChangeMacro = (e:any) => {
         setInputValueMacro(e.target.value);
 
         // document.getElementById('autoCom_options').style.display = 'block';
         if (e.target.value.length > 0) {
-            var data = macroTrend.filter(_data => _data.macro_trend.toLowerCase().includes(e.target.value))
+            var data = macroTrend.filter((_data: { macro_trend: string }) => _data.macro_trend.toLowerCase().includes(e.target.value))
             setMacroFilterList(data)
             setOpenPopupMacro(true)
         } else if (e.target.value.length === 0) {
@@ -153,13 +167,13 @@ const CompanyDetails = ({
         }
     }
 
-    const onInputChangeTrend = (e) => {
+    const onInputChangeTrend = (e:any) => {
         // console.log(e.target.value);
         setInputValueTrend(e.target.value);
 
         // document.getElementById('autoCom_options').style.display = 'block';
         if (e.target.value.length > 0) {
-            var data = entities.filter(e_data => e_data.toLowerCase().includes(e.target.value))
+            var data = entities.filter((e_data: string) => e_data.toLowerCase().includes(e.target.value))
             // console.log(data);
             setTrndFilterList(data)
             setOpenPopupTrend(true)
@@ -298,14 +312,14 @@ const CompanyDetails = ({
 
                         <Grid container style={{ marginTop: "20px", marginBottom: "10px" }}>
 
-                            {macroTrends && macroTrends.map((data) => (
-                                <Grid item xs={6} sm={6} md={4} lg={4} xl={4} style={{ marginTop: 0, padding: "10px" }}>
+                            {macroTrends && macroTrends.map((data:any,index:any) => (
+                                <Grid item xs={6} sm={6} md={4} lg={4} xl={4} style={{ marginTop: 0, padding: "10px" }} key={index}>
 
                                     <div>
 
                                         <div className="d-flex">
                                             {
-                                                selectedMacroFactor.find(o => o.macro_trend === data.macro_trend) ?
+                                                selectedMacroFactor.find((o: { macro_trend: any }) => o.macro_trend === data.macro_trend) ?
                                                     <Image src={ic_check_selected} height={20} width={20}
                                                         onClick={() =>
                                                             selectMacro(data)
@@ -346,11 +360,11 @@ const CompanyDetails = ({
                                             {
                                                 openPopupMacro ?
                                                     <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M5.99508 10L3.9074 10C1.31929 10 0.255901 8.2364 1.55386 6.08255L2.60162 4.34897L3.64937 2.61538C4.94733 0.461538 7.06629 0.461538 8.36425 2.61538L9.41201 4.34897L10.4598 6.08255C11.7343 8.2364 10.6787 10 8.08277 10L5.99508 10Z" fill="#1EE8B7" stroke="#1EE8B7" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M5.99508 10L3.9074 10C1.31929 10 0.255901 8.2364 1.55386 6.08255L2.60162 4.34897L3.64937 2.61538C4.94733 0.461538 7.06629 0.461538 8.36425 2.61538L9.41201 4.34897L10.4598 6.08255C11.7343 8.2364 10.6787 10 8.08277 10L5.99508 10Z" fill="#1EE8B7" stroke="#1EE8B7" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                     :
                                                     <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M6.00492 1L8.0926 1C10.6807 1 11.7441 2.7636 10.4461 4.91745L9.39838 6.65103L8.35063 8.38462C7.05267 10.5385 4.93371 10.5385 3.63575 8.38462L2.58799 6.65103L1.54024 4.91745C0.265736 2.7636 1.32131 1 3.91723 1L6.00492 1Z" stroke="#1EE8B7" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M6.00492 1L8.0926 1C10.6807 1 11.7441 2.7636 10.4461 4.91745L9.39838 6.65103L8.35063 8.38462C7.05267 10.5385 4.93371 10.5385 3.63575 8.38462L2.58799 6.65103L1.54024 4.91745C0.265736 2.7636 1.32131 1 3.91723 1L6.00492 1Z" stroke="#1EE8B7" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
 
                                             }
@@ -375,9 +389,9 @@ const CompanyDetails = ({
                                     {
                                         macroFilterList.length > 0 ?
 
-                                            macroFilterList && macroFilterList.map((data) => (
+                                            macroFilterList && macroFilterList.map((data:any, index:any) => (
                                                 <div className="border_bottom" onClick={() =>
-                                                    selectMacro(data)}>
+                                                    selectMacro(data)} key={index}>
 
                                                     <div className="poppins-normal font-white">{data.macro_trend}</div>
                                                 </div>
@@ -402,15 +416,15 @@ const CompanyDetails = ({
 
                         <Grid container style={{ marginTop: "20px", marginBottom: "10px" }}>
 
-                            {trends.map((data) => (
-                                <Grid item xs={6} sm={6} md={4} lg={4} xl={4} style={{ marginTop: 0, padding: "10px" }}>
+                            {trends.map((data:any, index:any) => (
+                                <Grid item xs={6} sm={6} md={4} lg={4} xl={4} style={{ marginTop: 0, padding: "10px" }} key={index}>
 
                                     <div>
 
                                         <div className="d-flex">
 
                                             {
-                                                selectedTrendFactor.find(o => o === data) ?
+                                                selectedTrendFactor.find((o: any) => o === data) ?
                                                     <Image src={ic_check_selected} height={20} width={20}
                                                         onClick={() =>
                                                             selectTrend(data)
@@ -452,11 +466,11 @@ const CompanyDetails = ({
                                             {
                                                 openPopupTrend ?
                                                     <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M5.99508 10L3.9074 10C1.31929 10 0.255901 8.2364 1.55386 6.08255L2.60162 4.34897L3.64937 2.61538C4.94733 0.461538 7.06629 0.461538 8.36425 2.61538L9.41201 4.34897L10.4598 6.08255C11.7343 8.2364 10.6787 10 8.08277 10L5.99508 10Z" fill="#1EE8B7" stroke="#1EE8B7" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M5.99508 10L3.9074 10C1.31929 10 0.255901 8.2364 1.55386 6.08255L2.60162 4.34897L3.64937 2.61538C4.94733 0.461538 7.06629 0.461538 8.36425 2.61538L9.41201 4.34897L10.4598 6.08255C11.7343 8.2364 10.6787 10 8.08277 10L5.99508 10Z" fill="#1EE8B7" stroke="#1EE8B7" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                     :
                                                     <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M6.00492 1L8.0926 1C10.6807 1 11.7441 2.7636 10.4461 4.91745L9.39838 6.65103L8.35063 8.38462C7.05267 10.5385 4.93371 10.5385 3.63575 8.38462L2.58799 6.65103L1.54024 4.91745C0.265736 2.7636 1.32131 1 3.91723 1L6.00492 1Z" stroke="#1EE8B7" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M6.00492 1L8.0926 1C10.6807 1 11.7441 2.7636 10.4461 4.91745L9.39838 6.65103L8.35063 8.38462C7.05267 10.5385 4.93371 10.5385 3.63575 8.38462L2.58799 6.65103L1.54024 4.91745C0.265736 2.7636 1.32131 1 3.91723 1L6.00492 1Z" stroke="#1EE8B7" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
 
                                             }
@@ -481,9 +495,9 @@ const CompanyDetails = ({
 
                                         trendFilterList.length > 0 ?
 
-                                            trendFilterList && trendFilterList.map((data) => (
+                                            trendFilterList && trendFilterList.map((data:any, index:any) => (
                                                 <div className="border_bottom" onClick={() =>
-                                                    selectTrend(data)}>
+                                                    selectTrend(data)} key={index}>
 
                                                     <div className="poppins-normal font-white">{data}</div>
                                                 </div>

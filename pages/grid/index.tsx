@@ -5,7 +5,7 @@ import { GetStaticProps } from 'next';
 const CustomAGGrid = dynamic(() => import("../../components/ag_grid"), { ssr: false });
 
 
-const AGGridDemo = ({ data }) => {    
+const AGGridDemo = ({ data }:{ data:any }) => {    
 
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
@@ -17,12 +17,12 @@ const AGGridDemo = ({ data }) => {
         {make: "Porsche", model: "Boxter", price: 72000}
     ];
 
-    const getRowStyle = params => {
+    const getRowStyle = (params:any) => {
         if (params.node.rowIndex % 2 !== 0)
             return { background: 'rgba(255, 255, 255, 0.1)' };
     };
 
-    const onGridReady = (params) => {
+    const onGridReady = (params:any) => {
         setGridApi(params.api);
         setGridColumnApi(params.columnApi);
     };   

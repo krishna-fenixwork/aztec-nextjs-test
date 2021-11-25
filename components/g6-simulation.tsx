@@ -2,14 +2,14 @@ import React from 'react';
 import G6 from '@antv/g6';
 import LocationCity from '../pages/aseets/group_2787.png';
 
-const G6Simulation = ({macroFactor, trends}) => {
+const G6Simulation = ({macroFactor, trends}:{macroFactor:any, trends:any}) => {
 
-    const g6Graph = React.useRef(null); 
+    const g6Graph:any = React.useRef(null); 
     
     React.useEffect(() => {
-        let data = [];
+        let data:any = [];
         if (macroFactor && trends) {                        
-            const mapedTrends = macroFactor.map((item) => item?.macro_trend)
+            const mapedTrends = macroFactor.map((item:any) => item?.macro_trend)
             data = [...trends, ...mapedTrends];            
         }      
       
@@ -42,7 +42,7 @@ const G6Simulation = ({macroFactor, trends}) => {
         });
 
         graph.on('node:mouseenter', (evt) => {
-            const { item } = evt;
+            const { item }:{item:any} = evt;
             const model = item.getModel();
             const currentLabel = model.label;
             // model.oriFontSize = model.labelCfg.style.fontSize;
@@ -55,7 +55,7 @@ const G6Simulation = ({macroFactor, trends}) => {
         });
 
         graph.on('node:mouseleave', (evt) => {
-            const { item } = evt;
+            const { item } : {item:any} = evt;
             const model = item.getModel();
             const currentLabel = model.label;
             item.update({
@@ -70,7 +70,7 @@ const G6Simulation = ({macroFactor, trends}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const formatText = (text, length = 5, elipsis = '...') => {
+    const formatText = (text:any, length = 5, elipsis = '...') => {
         if (!text) return '';
         if (text.length > length) {
           return `${text.substr(0, length)}${elipsis}`;
@@ -79,8 +79,8 @@ const G6Simulation = ({macroFactor, trends}) => {
     };
 
 
-    const setNodesAndEdges = (data) => {
-        let nodes = [
+    const setNodesAndEdges = (data:any) => {
+        let nodes:any = [
             {
                 id: 'root',
                 x: 150,
@@ -92,7 +92,20 @@ const G6Simulation = ({macroFactor, trends}) => {
                     show: true,
                     type: 'circle',
                     // r: 15
-                }   
+                },
+                oriLabel: '',
+                label: '',
+                labelCfg: {
+                    position: 'center',                    
+                    offset: 10,
+                    style: {
+                        fill: '#fff',
+                        opacity: 0.5
+                    }
+                },
+                style: {
+                    opacity: 0
+                }
                 // icon: {
                 //     show: true,
                 //     width: 25,
@@ -101,8 +114,8 @@ const G6Simulation = ({macroFactor, trends}) => {
                 // },             
             }            
         ];
-        let edges = [];
-        data.forEach((item) => {
+        let edges:any = [];
+        data.forEach((item:any) => {
             nodes.push({
                 id: item,
                 oriLabel: item,

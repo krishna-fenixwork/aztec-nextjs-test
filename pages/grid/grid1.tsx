@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { GetServerSideProps } from 'next';
 const AGGridSSR = dynamic(() => import("../../components/reporting/ag-grid-table/ag_grid_ssr"), { ssr: false });
 
-const Grid1 = ({ kpi_data, quarterly_data }) => {
+const Grid1 = ({ kpi_data, quarterly_data }:{ kpi_data:any, quarterly_data:any }) => {
     return (
         <>
             <AGGridSSR quarterlyData={quarterly_data} />

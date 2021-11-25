@@ -7,36 +7,44 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 const SimulationTable = ({
     data
+}:{
+    data:any
 }) => {
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
 
     const rowStyle = { background: 'rgba(0, 0, 0, 0.1)', color: "#fff" };
 
-    const getRowStyle = params => {
+    const getRowStyle = () => {
         return { background: 'rgba(0, 0, 0, 0.1)', color: "#fff" };
     };
 
-    const onGridReady = (params) => {
+    const onGridReady = (params:any) => {
         setGridApi(params.api);
         setGridColumnApi(params.columnApi);
     };
 
     const onExportTable = () => {
         var spreadsheets = [];
-        gridApi.forEachNode((node, index) => {
+        // @ts-ignore: Object is possibly 'null'.
+        gridApi.forEachNode((node:any, index:any) => {
             if (index % 100 === 0) {
+                // @ts-ignore: Object is possibly 'null'.
                 gridApi.deselectAll();
             }
             node.setSelected(true);
             if (index % 100 === 99) {
+                // @ts-ignore: Object is possibly 'null'.
                 spreadsheets.push(gridApi.getSheetDataForExcel({ onlySelected: true }));
             }
-        });
+        });// @ts-ignore: Object is possibly 'null'.
         if (gridApi.getSelectedNodes().length) {
+            // @ts-ignore: Object is possibly 'null'.
             spreadsheets.push(gridApi.getSheetDataForExcel({ onlySelected: true }));
+            // @ts-ignore: Object is possibly 'null'.
             gridApi.deselectAll();
         }
+        // @ts-ignore: Object is possibly 'null'.
         gridApi.exportMultipleSheetsAsExcel({ data: spreadsheets });
     };
 
@@ -73,7 +81,7 @@ const SimulationTable = ({
                         flex: 1,
                     }}
                     components={{
-                        rowNodeIdRenderer: function (params) {
+                        rowNodeIdRenderer: function (params:any) {
                             return params.node.id + 1;
                         },
                     }}

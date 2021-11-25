@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import LottieAnimation from '../../../services/lottie_animation';
 import AnimationLoader from '../../../components/animation_loader';
 import simulation_animation from '../../aseets/animation/simulation_animation.json';
-import SideMenu from '../../../components/sidemenu';
+// import SideMenu from '../../../components/sidemenu';
 import SimulationAutocomplete from './simulation_autocomplete';
 import { getCompanyPerformance, getEntities, getMacroTrends, getMarketFactor, getPredictEntity } from '../../../api/api';
 import { notifyError, notifyInfo } from '../../../services/toaster_services';
@@ -12,7 +12,7 @@ import ForcastingGraph from './forcasting_graph';
 import { auth } from '../../../firebase/config_s';
 import { useRouter } from 'next/router'
 
-const SimulationBarChart = dynamic(() => import("./simulation_bar_chart"), { ssr: false });
+const SimulationBarChart = dynamic(() => import("../../../components/simulation_bar_chart"), { ssr: false });
 const SimulationFundGraph = dynamic(() => import("./simulation-fund-graph"), { ssr: false });
 const SimulationScenarios = dynamic(() => import("./simulation-scenarios"), { ssr: false });
 const SimulationTable = dynamic(() => import("./simulation-table"), { ssr: false });
@@ -24,7 +24,7 @@ const Simulation = ({ }) => {
     const [loadingDataMarket, setLoadingDataMarket] = useState(false);
     const [showAnimation, setShowAnimation] = useState(false)
 
-    const [selectedFund, setSelectedFund] = useState(null);
+    const [selectedFund, setSelectedFund] = useState<any>(null);
     const [timePeriod, setTimePeriod] = useState(1);
     const [showSelection, setShowSelection] = useState(true)
 
@@ -33,18 +33,18 @@ const Simulation = ({ }) => {
 
     const [predictModelData, setPredictModelData] = useState(null)
 
-    const [barChartData1, setBarChartData1] = useState([]);
-    const [barChartData2, setBarChartData2] = useState([]);
-    const [barChartData3, setBarChartData3] = useState([]);
-    const [barChartData4, setBarChartData4] = useState([]);
+    const [barChartData1, setBarChartData1] = useState<any[]>([]);
+    const [barChartData2, setBarChartData2] = useState<any[]>([]);
+    const [barChartData3, setBarChartData3] = useState<any[]>([]);
+    const [barChartData4, setBarChartData4] = useState<any[]>([]);
 
     //
     const [selectedMacroFactor, setSelectedMacroFactor] = useState([])
     const [selectedTrendFactor, setSelectedTrendFactor] = useState([])
 
     // forecasting graph
-    const [chart_data_market, setChartDataMarket] = useState()
-    const [chart_data_company, setChartDataCompany] = useState()
+    const [chart_data_market, setChartDataMarket] = useState(null)
+    const [chart_data_company, setChartDataCompany] = useState(null)
 
     const [selectedMarketFactor, setSelectedMarketFactor] = useState("");
     const [selectedCompFactor, setSelectedCompFactor] = useState("");
@@ -61,9 +61,9 @@ const Simulation = ({ }) => {
 
     const [tableData, setTableData] = useState(null)
 
-    const [barChart1, setFundBarChart1] = useState(null);
-    const [barChart3, setFundBarChart3] = useState(null);
-    const [barChart4, setFundBarChart4] = useState(null);
+    const [barChart1, setFundBarChart1] = useState<any>(null);
+    const [barChart3, setFundBarChart3] = useState<any>(null);
+    const [barChart4, setFundBarChart4] = useState<any>(null);
 
     const onlogout = () => {
         auth.signOut();
@@ -71,7 +71,7 @@ const Simulation = ({ }) => {
         router.push('/onboarding/login')
     }
 
-    const onAutocompleteSelect = (option) => {
+    const onAutocompleteSelect = (option:any) => {
         setSelectedFund(option);
 
         getMacroTrends(option.uuid).then(response => {
@@ -83,7 +83,7 @@ const Simulation = ({ }) => {
         })
     }
 
-    const onTimePeriodChange = (event, value) => {
+    const onTimePeriodChange = (event:any, value:any) => {
         setLoadingDataGraph(true);
         setLoadingDataMarket(true);
         setLoadingDataCompany(true);
@@ -100,8 +100,8 @@ const Simulation = ({ }) => {
         } else notifyInfo('Select fund first!');
     }
 
-    const findEntities = (fund, period) => {
-        const macroTrend_data = selectedMacroFactor.map((item) => item.macro_uuid)
+    const findEntities = (fund:any, period:any) => {
+        const macroTrend_data = selectedMacroFactor.map((item:any) => item.macro_uuid)
         getPredictEntity({
             "macro_trends": macroTrend_data,
             "entities": selectedTrendFactor,
@@ -118,13 +118,13 @@ const Simulation = ({ }) => {
         })
     }
 
-    const getGraphs = (option, period) => {
+    const getGraphs = (option:any, period:any) => {
 
-        const macroTrend = selectedMacroFactor.map((item) => item.macro_uuid)
+        const macroTrend = selectedMacroFactor.map((item:any) => item.macro_uuid)
 
         getMarketFactor(macroTrend, selectedTrendFactor, period).then(response => {
-            var dataArr = []
-            var innData = []
+            var dataArr:any = []
+            var innData:any = []
 
             for (var i = 0; i < response.market_factor.length; i++) {
                 innData = []
@@ -171,8 +171,8 @@ const Simulation = ({ }) => {
         });
 
         getCompanyPerformance(macroTrend, selectedTrendFactor, period).then(response => {
-            var dataArrComp = []
-            var innData = []
+            var dataArrComp:any = []
+            var innData:any = []
 
             for (var i = 0; i < response.company_performance.length; i++) {
                 innData = []
@@ -247,10 +247,10 @@ const Simulation = ({ }) => {
         setSelectedCompFactor("");
     }
 
-    const onScenarioChange = (data, scenorioType, _tableData) => {
+    const onScenarioChange = (data:any, scenorioType:any, _tableData:any) => {
         if (_tableData) {
             // console.log("table data", _tableData);
-            var tableDataT = []
+            var tableDataT:any = []
 
             for (var i = 0; i < _tableData.digital_footprint.length; i++) {
                 var dataDigital = _tableData.digital_footprint[i]
@@ -285,9 +285,9 @@ const Simulation = ({ }) => {
         setChartData(data, scenorioType);
     }
 
-    const setChartData = (initial_data, scenorioType) => {
+    const setChartData = (initial_data:any, scenorioType:any) => {
         if (scenorioType === 'all') {
-            let data = [
+            let data:any = [
                 {
                     category: 'Revenue',
                     optimist: initial_data[0]?.revenue,
@@ -322,10 +322,10 @@ const Simulation = ({ }) => {
             setBarChartData3([data[2]]);
             setBarChartData4([data[3]]);
         } else {
-            let barData1 = barChartData1;
-            let barData2 = barChartData2;
-            let barData3 = barChartData3;
-            let barData4 = barChartData4;
+            let barData1:any = barChartData1;
+            let barData2:any = barChartData2;
+            let barData3:any = barChartData3;
+            let barData4:any = barChartData4;
 
             switch (scenorioType) {
                 case 0:
@@ -379,7 +379,7 @@ const Simulation = ({ }) => {
             {
                 (loadingDataCompany || loadingDataGraph || loadingDataMarket || showAnimation) && <div className="loader_center">
 
-                    <LottieAnimation lotti={simulation_animation} />
+                    <LottieAnimation lotti={simulation_animation} width={500} height={500} />
 
                 </div>
             }

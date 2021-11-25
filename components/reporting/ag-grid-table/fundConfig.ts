@@ -1,6 +1,6 @@
 import { filterDateParams, currencyFormatter, signFormatter, roundOffDecimal } from '../../../services/common_services';
 
-export const columns = [
+export const columns:any = [
     {        
         headerName: 'ID',
         minWidth: 100,
@@ -30,7 +30,7 @@ export const columns = [
     {
         field: 'grossIRR',
         headerName: 'Gross IRR',
-        valueFormatter: params => signFormatter(params?.data?.grossIRR, '%'),
+        valueFormatter: (params: { data: { grossIRR: any; }; }) => signFormatter(params?.data?.grossIRR, '%'),
         filter: 'agNumberColumnFilter',
         width: 120,
         flex: 0,
@@ -42,7 +42,7 @@ export const columns = [
     {
         field: 'netIRR',
         headerName: 'Net IRR',
-        valueFormatter: params => signFormatter(params?.data?.netIRR, '%'),
+        valueFormatter: (params: { data: { netIRR: any; }; }) => signFormatter(params?.data?.netIRR, '%'),
         filter: 'agNumberColumnFilter',
         width: 100,
         flex: 0,
@@ -54,7 +54,7 @@ export const columns = [
     {
         field: 'grossMOIC',
         headerName: 'Gross MOIC',
-        valueFormatter: params => roundOffDecimal(params?.data?.grossMOIC),
+        valueFormatter: (params: { data: { grossMOIC: any; }; }) => roundOffDecimal(params?.data?.grossMOIC),
         filter: 'agNumberColumnFilter',
         width: 120,
         flex: 0,
@@ -66,7 +66,7 @@ export const columns = [
     {
         field: 'netMOIC',
         headerName: 'Net MOIC',
-        valueFormatter: params => roundOffDecimal(params?.data?.netMOIC),
+        valueFormatter: (params: { data: { netMOIC: any; }; }) => roundOffDecimal(params?.data?.netMOIC),
         filter: 'agNumberColumnFilter',
         width: 100,
         flex: 0,
@@ -78,7 +78,7 @@ export const columns = [
     {
         field: 'NAV',
         headerName: 'NAV',
-        valueFormatter: params => currencyFormatter(params?.data?.NAV, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { NAV: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.NAV, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 120,
         flex: 0,
@@ -90,7 +90,7 @@ export const columns = [
     {
         field: 'distributionsCapitalDPI',
         headerName: 'DPI',
-        valueFormatter: params => roundOffDecimal(params?.data?.distributionsCapitalDPI),
+        valueFormatter: (params: { data: { distributionsCapitalDPI: any; }; }) => roundOffDecimal(params?.data?.distributionsCapitalDPI),
         filter: 'agNumberColumnFilter',
         width: 150,
         flex: 0,
@@ -102,7 +102,7 @@ export const columns = [
     {
         field: 'TVPI',
         headerName: 'TVPI',
-        valueFormatter: params => roundOffDecimal(params?.data?.TVPI),
+        valueFormatter: (params: { data: { TVPI: any; }; }) => roundOffDecimal(params?.data?.TVPI),
         filter: 'agNumberColumnFilter',
         width: 100,
         flex: 0,
@@ -114,7 +114,7 @@ export const columns = [
     {
         field: 'RVPI',
         headerName: 'RVPI',
-        valueFormatter: params => roundOffDecimal(params?.data?.RVPI),
+        valueFormatter: (params: { data: { RVPI: any; }; }) => roundOffDecimal(params?.data?.RVPI),
         filter: 'agNumberColumnFilter',
         width: 100,
         flex: 0,
@@ -126,7 +126,7 @@ export const columns = [
     {
         field: 'PiCC',
         headerName: 'PiCC',
-        valueFormatter: params => roundOffDecimal(params?.data?.PiCC),
+        valueFormatter: (params: { data: { PiCC: any; }; }) => roundOffDecimal(params?.data?.PiCC),
         filter: 'agNumberColumnFilter',
         width: 100,
         flex: 0,
@@ -138,7 +138,7 @@ export const columns = [
     {
         field: 'totalCommitments',
         headerName: 'Commited Capital',
-        valueFormatter: params => currencyFormatter(params?.data?.totalCommitments, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { totalCommitments: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.totalCommitments, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 150,
         flex: 0,
@@ -151,7 +151,7 @@ export const columns = [
     {
         field: 'calledCapital',
         headerName: 'Called Capital',
-        valueFormatter: params => currencyFormatter(params?.data?.calledCapital, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { calledCapital: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.calledCapital, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 120,
         flex: 0,
@@ -164,7 +164,7 @@ export const columns = [
     {
         field: 'undrawnCapital',
         headerName: 'Undrawn Capital',
-        valueFormatter: params => currencyFormatter(params?.data?.undrawnCapital, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { undrawnCapital: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.undrawnCapital, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 120,
         flex: 0,
@@ -177,7 +177,7 @@ export const columns = [
     {
         field: 'distributedCapital',
         headerName: 'Distributed Capital',
-        valueFormatter: params => currencyFormatter(params?.data?.distributedCapital, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { distributedCapital: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.distributedCapital, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 150,
         flex: 0,
@@ -190,7 +190,7 @@ export const columns = [
     {
         field: 'recallableCapital',
         headerName: 'Recallable Capita',
-        valueFormatter: params => currencyFormatter(params?.data?.recallableCapital, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { recallableCapital: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.recallableCapital, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 150,
         flex: 0,
@@ -203,7 +203,7 @@ export const columns = [
     {
         field: 'totalInvestedPortfolioCompanies',
         headerName: 'Total invested in Portfolio Companies',
-        valueFormatter: params => currencyFormatter(params?.data?.totalInvestedPortfolioCompanies, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { totalInvestedPortfolioCompanies: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.totalInvestedPortfolioCompanies, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 170,
         flex: 0,
@@ -216,7 +216,7 @@ export const columns = [
     {
         field: 'totalPortfolioFairValue',
         headerName: 'Total Fair Value of Portfolio',
-        valueFormatter: params => currencyFormatter(params?.data?.totalPortfolioFairValue, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { totalPortfolioFairValue: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.totalPortfolioFairValue, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 170,
         flex: 0,
@@ -229,7 +229,7 @@ export const columns = [
     {
         field: 'totalAdditionalCapital',
         headerName: 'Total Additional Portfolio',
-        valueFormatter: params => currencyFormatter(params?.data?.totalAdditionalCapital, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { totalAdditionalCapital: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.totalAdditionalCapital, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 170,
         flex: 0,
@@ -242,7 +242,7 @@ export const columns = [
     {
         field: 'carryPaid',
         headerName: 'Carry Paid',
-        valueFormatter: params => currencyFormatter(params?.data?.carryPaid, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { carryPaid: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.carryPaid, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 120,
         flex: 0,
@@ -255,7 +255,7 @@ export const columns = [
     {
         field: 'managementFeePaid',
         headerName: 'Management Fee',
-        valueFormatter: params => currencyFormatter(params?.data?.managementFeePaid, params?.data?.fundCurrency),
+        valueFormatter: (params: { data: { managementFeePaid: any; fundCurrency: any; }; }) => currencyFormatter(params?.data?.managementFeePaid, params?.data?.fundCurrency),
         filter: 'agNumberColumnFilter',
         width: 150,
         flex: 0,

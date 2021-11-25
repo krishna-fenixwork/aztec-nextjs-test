@@ -5,11 +5,11 @@ export const getUser = () => {
   return jsonValue != null ? JSON.parse(jsonValue) : null;
 };
 
-export const setUser = (userData) => {
+export const setUser = (userData: any) => {
   localStorage.user = JSON.stringify(userData)
 };
 
-export const setConfig = (data) => {
+export const setConfig = (data: any) => {
   localStorage.config = JSON.stringify(data)
 }
 
@@ -18,8 +18,9 @@ export const getConfig = () => {
   return jsonValue != null ? JSON.parse(jsonValue) : null;
 }
 
-export const checkDomain = (email) => {
+export const checkDomain = (email: string | null) => {
   for (let i = 0; i < getConfig()?.allowed_domains?.length; i++) {
+    // @ts-ignore: Object is possibly 'null'.
     if (email.split('@')[1] === getConfig()?.allowed_domains[i]) {
       return true
     }
@@ -28,23 +29,23 @@ export const checkDomain = (email) => {
   return false
 }
 
-export const getOrgId = (domain) => {
+export const getOrgId = (domain: any) => {
 
-  var list = getConfig()?.domain_details?.filter(data => data.domain.toLowerCase() === domain)
+  var list = getConfig()?.domain_details?.filter((data: { domain: string; }) => data.domain.toLowerCase() === domain)
   if (list.length > 0) {
     return list[0].org_id
   }
 }
 
-export const getGpName = (domain) => {
-  var list = getConfig()?.domain_details?.filter(data => data.domain.toLowerCase() === domain)
+export const getGpName = (domain: any) => {
+  var list = getConfig()?.domain_details?.filter((data: { domain: string; }) => data.domain.toLowerCase() === domain)
   console.log(list)
   if (list?.length > 0) {
     return list[0].gp_name
   }
 }
 
-export const getFormatedCurrency = (amount) => {
+export const getFormatedCurrency = (amount: number) => {
     if (amount > 999 && amount < 1000000)
         return (amount / 1000).toFixed(0) + 'K';
     else if (amount > 1000000)
@@ -53,7 +54,7 @@ export const getFormatedCurrency = (amount) => {
         return amount;
 }
 
-export const CURRENCY_SYMBOLS = {
+export const CURRENCY_SYMBOLS:any = {
     USD: '$', // US Dollar
     EUR: '€', // Euro
     CRC: '₡', // Costa Rican Colón
@@ -72,7 +73,7 @@ export const CURRENCY_SYMBOLS = {
     SEK: 'kr' // Swedish krona
 };
 
-export const getFormattedTimeString = (time) => {
+export const getFormattedTimeString = (time: any) => {
     let timeString = time;
     const H = +timeString.substr(0, 2);
     const h = (H % 12) || 12;
@@ -81,7 +82,7 @@ export const getFormattedTimeString = (time) => {
     return timeString;
 }
 export const filterDateParams = {
-    comparator: function (filterLocalDateAtMidnight, cellValue) {
+    comparator: function (filterLocalDateAtMidnight: any, cellValue: any) {
         const dateAsString = cellValue;
         if (dateAsString == null) return -1;
         const dateParts = dateAsString.split('/');
@@ -101,23 +102,23 @@ export const filterDateParams = {
     minValidYear: 2000
 };
 
-export const currencyFormatter = (currency, symbol) => {
+export const currencyFormatter = (currency: any, symbol: string | number) => {
     if (currency) {
-        const sansDec = roundOffDecimal(currency).toString();
+        const sansDec:any = roundOffDecimal(currency)?.toString();
         const formatted = sansDec.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         const sign = CURRENCY_SYMBOLS[symbol] || '';
         return sign + `${formatted}`;
     }
 }
-export const roundOffDecimal = (num) => {
+export const roundOffDecimal = (num: any) => {
     if (num) {
         const m = Number((Math.abs(num) * 100).toPrecision(15));
         return Math.round(m) / 100 * Math.sign(num);
     }
 }
-export const signFormatter = (number, symbol) => {
+export const signFormatter = (number: any, symbol: string) => {
     if (number) {
-        const sansDec = roundOffDecimal(number).toString();
+        const sansDec = roundOffDecimal(number)?.toString();
         return sansDec + symbol;
     }
 }

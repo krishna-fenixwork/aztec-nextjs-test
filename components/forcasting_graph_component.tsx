@@ -7,19 +7,29 @@ import { create, useTheme, Scrollbar, color, ColorSet } from "@amcharts/amcharts
 
 const ForcastingGraphComponent = ({
     id,
+    name,
     data,
     selectedFactor,
     startDate,
     nextDate,
     endDate,
     setSelectedFactor
+} : {
+    id:any,
+    data:any,
+    name:any,
+    selectedFactor:any,
+    startDate:any,
+    nextDate:any,
+    endDate:any,
+    setSelectedFactor:any,
 }) => {
     const [factor, setFactor] = useState([])
 
     // useTheme(am4themes_animated);
     useTheme(am4themes_dark);
 
-    function am4themes_myTheme(target) {
+    function am4themes_myTheme(target:any) {
         if (target instanceof ColorSet) {
             target.list = [
                 color("#fdd400"),
@@ -74,7 +84,9 @@ const ForcastingGraphComponent = ({
         }
     }
 
-    const addLineChart = (chart, list, pos, data, name, dateAxis, opposite, startDate, nextDate, endDate) => {
+    const addLineChart = (chart:any, 
+        list:any, pos:any, data:any, name:any, dateAxis:any, opposite:any, startDate:any, 
+        nextDate:any, endDate:any) => {
         var lineSeries = chart.series.push(new LineSeries());
         lineSeries.data = data
         lineSeries.dataFields.dateX = "date";
@@ -150,24 +162,24 @@ const ForcastingGraphComponent = ({
     return (
         <div className="d-flex" style={{ width: "100%" }}>
 
-            <div id={id} name="chartdiv"></div>
+            <div id={id} className="chartdiv"></div>
 
             <div className="div_column" style={{ width: "200px" }}>
-                <div className="poppins-medium font-white font-start">{name}</div>
+                <div className="poppins-medium font-white font-start">Simulation</div>
 
                 <div className="radio_scrollbar">
                     {
-                        data && data.map((item, index) => (
-                            <div className="d-flex radio-text" onClick={() => setSelectedFactor(item.name)}  >
+                        data && data.map((item:any, index:any) => (
+                            <div className="d-flex radio-text" onClick={() => setSelectedFactor(item.name)} key={index}>
                                 {
                                     selectedFactor === item.name ?
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <rect width="14" height="14" rx="4" fill={typeof item.color !== 'undefined' ? item.color : "#1ee8b657"} />
-                                            <rect x="0.5" y="0.5" width="13" height="13" rx="3.5" stroke="url(#paint0_linear)" stroke-opacity="0.4" />
+                                            <rect x="0.5" y="0.5" width="13" height="13" rx="3.5" stroke="url(#paint0_linear)" strokeOpacity="0.4" />
                                             <defs>
                                                 <linearGradient id="paint0_linear" x1="7" y1="3.76811e-07" x2="18.264" y2="17.8104" gradientUnits="userSpaceOnUse">
-                                                    <stop stop-color="#1ee8b657" />
-                                                    <stop offset="1" stop-color="#1ee8b657" />
+                                                    <stop stopColor="#1ee8b657" />
+                                                    <stop offset="1" stopColor="#1ee8b657" />
                                                 </linearGradient>
                                             </defs>
                                         </svg>
@@ -177,11 +189,11 @@ const ForcastingGraphComponent = ({
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <rect x="0.5" y="0.5" width="13" height="13" rx="3.5"
                                                 stroke={typeof item.color !== 'undefined' ? item.color : "#1ee8b657"}
-                                                stroke-opacity="0.8" />
+                                                strokeOpacity="0.8" />
                                             <defs>
                                                 <linearGradient id="paint0_linear" x1="7" y1="3.76811e-07" x2="18.264" y2="17.8104" gradientUnits="userSpaceOnUse">
-                                                    <stop stop-color="#1ee8b7" />
-                                                    <stop offset="1" stop-color="#1ee8b7" />
+                                                    <stop stopColor="#1ee8b7" />
+                                                    <stop offset="1" stopColor="#1ee8b7" />
                                                 </linearGradient>
                                             </defs>
                                         </svg>

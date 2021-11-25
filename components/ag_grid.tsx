@@ -1,9 +1,24 @@
 import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import PropTypes from 'prop-types';
 
 const CustomAGGrid = ({
-    quarterReportData, tableHeight, rowStyle, getRowStyle, onGridReady, selected, setSelected
+    quarterReportData, 
+    tableHeight, 
+    rowStyle, 
+    getRowStyle, 
+    onGridReady, 
+    selected, 
+    setSelected
+}: {
+    quarterReportData: any,
+    tableHeight: any,
+    rowStyle: any,
+    getRowStyle: any,
+    onGridReady: any,
+    selected: any,
+    setSelected: any
 }) => {
 
     // const headerHeightGetter = () => {
@@ -44,7 +59,7 @@ const CustomAGGrid = ({
                     rowSelection='multiple'
                     suppressRowClickSelection={true}
                     components={{
-                        rowNodeIdRenderer: function (params) {
+                        rowNodeIdRenderer: function (params:any) {
                             return params.node.id + 1;
                         }
                     }}
@@ -349,3 +364,13 @@ const CustomAGGrid = ({
 }
 
 export default CustomAGGrid;
+
+CustomAGGrid.propTypes = {
+    quarterReportData: PropTypes.any,
+    tableHeight:PropTypes.any,
+    rowStyle:PropTypes.any,
+    getRowStyle:PropTypes.any,
+    onGridReady:PropTypes.any,
+    selected:PropTypes.any,
+    setSelecte:PropTypes.any,
+};

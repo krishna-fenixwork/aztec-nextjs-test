@@ -2,35 +2,35 @@ import { getUser } from '../services/common_services';
 import { RESTAPI } from './rest_api';
 import {BASEURL, HOSTURL} from '../constants/envConstants';
 
-export const getUserData = (uid) => {
+export const getUserData = (uid: string) => {
     return fetch(BASEURL + RESTAPI.GET_USER_DATA + '?uid=' + uid, {
         headers: { uid }
     })
         .then(response => response.json())
 }
 
-export const getOrgData = (orgId) => {
+export const getOrgData = (orgId: string) => {
     return fetch(BASEURL + RESTAPI.GET_ORGANISATION_DATA + '?uuid=' + orgId, {
         headers: { uid: getUser().uid }
     })
         .then(response => response.json())
 }
 
-export const getHomeData = (orgId) => {
+export const getHomeData = (orgId: string) => {
     return fetch(BASEURL + RESTAPI.GET_HOME_DATA + '?uuid=' + orgId, {
         headers: { uid: getUser().uid }
     })
         .then(response => response.json())
 }
 
-export const getUsers = (domain) => {
+export const getUsers = (domain: string) => {
     return fetch(BASEURL + RESTAPI.GET_USERS + '?domain=' + domain + '&uid=' + getUser().uid, {
         headers: { uid: getUser().uid }
     })
         .then(response => response.json())
 }
 
-export const setUserData = (uid, name, email, photoURL, domain, org_Id, gp_Name) => {
+export const setUserData = (uid: any, name: any, email: any, photoURL: any, domain: any, org_Id: any, gp_Name: any) => {
     const body = JSON.stringify({ uid, org_Id, gp_Name, name, email, photoURL, domain })
 
     return fetch(BASEURL + RESTAPI.SET_USER_DATA, {
@@ -41,7 +41,7 @@ export const setUserData = (uid, name, email, photoURL, domain, org_Id, gp_Name)
         .then(response => response.json())
 }
 
-export const verifyUser = (uid, verification_Key) => {
+export const verifyUser = (uid: any, verification_Key: any) => {
     const body = JSON.stringify({ verification_Key })
 
     return fetch(BASEURL + RESTAPI.VERIFY_USER, {
@@ -52,7 +52,7 @@ export const verifyUser = (uid, verification_Key) => {
         .then(response => response.json())
 }
 
-export const saveUserPermissions = (user_Uid, permissions) => {
+export const saveUserPermissions = (user_Uid: any, permissions: any) => {
     const body = JSON.stringify({ user_Uid, permissions })
 
     return fetch(BASEURL + RESTAPI.SAVE_USER_PERMISSIONS, {
@@ -63,7 +63,7 @@ export const saveUserPermissions = (user_Uid, permissions) => {
         .then(response => response.json())
 }
 
-export const getReports = (report_Id) => {
+export const getReports = (report_Id: string) => {
     const uid = getUser().uid;
 
     return fetch(BASEURL + RESTAPI.GET_REPORTS + '?report_id=' + report_Id, {
@@ -72,7 +72,7 @@ export const getReports = (report_Id) => {
         .then(response => response.json())
 }
 
-export const getRecomendationPreview = (fund_id, type) => {
+export const getRecomendationPreview = (fund_id: any, type: any) => {
     const body = JSON.stringify({ fund_id, type })
     return fetch(HOSTURL + RESTAPI.GET_RECOMMENDATION_PREVIEW, {
         method: 'POST',
@@ -82,7 +82,7 @@ export const getRecomendationPreview = (fund_id, type) => {
         .then(response => response.json())
 }
 
-export const getRecomendationSummary = (company_uuid) => {
+export const getRecomendationSummary = (company_uuid: any) => {
     const body = JSON.stringify({ uuid: company_uuid })
     return fetch(HOSTURL + RESTAPI.GET_RECOMENDATION_SUMMARY, {
         method: 'POST',
@@ -100,7 +100,7 @@ export const getRecomendationSummary = (company_uuid) => {
 //         .then(response => response.json())
 // }
 
-export const getCompanyDetails = (uuid, endpoint) => {
+export const getCompanyDetails = (uuid: any, endpoint: string) => {
     const body = JSON.stringify({ uuid })
     return fetch(HOSTURL + RESTAPI.COMAPNY_DETAILS + endpoint, {
         method: 'POST',
@@ -110,13 +110,13 @@ export const getCompanyDetails = (uuid, endpoint) => {
         .then(response => response.json())
 }
 
-export const serachCompany = (query) => {
+export const serachCompany = (query: string) => {
     return fetch(HOSTURL + RESTAPI.SEARCH_COMPANY + '?query=' + query, {
     })
         .then(response => response.json())
 }
 
-export const getMarketFactor = (macro_trends, entities, period) => {
+export const getMarketFactor = (macro_trends: any[], entities: never[], period: any) => {
     const body = JSON.stringify({ macro_trends, entities, period })
     return fetch(HOSTURL + RESTAPI.GET_MARKET_COMPANY, {
         method: 'POST',
@@ -126,7 +126,7 @@ export const getMarketFactor = (macro_trends, entities, period) => {
         .then(response => response.json())
 }
 
-export const getCompanyPerformance = (macro_trends, entities, period) => {
+export const getCompanyPerformance = (macro_trends: any[], entities: never[], period: any) => {
     const body = JSON.stringify({ macro_trends, entities, period })
     return fetch(HOSTURL + RESTAPI.GET_COMPANY_PERFORMANCE, {
         method: 'POST',
@@ -136,17 +136,17 @@ export const getCompanyPerformance = (macro_trends, entities, period) => {
         .then(response => response.json())
 }
 
-export const getAutoCompleteForecasting = (query) => {
+export const getAutoCompleteForecasting = (query: string) => {
     return fetch(HOSTURL + RESTAPI.SEARCH_COMPANY + '?query=' + query)
         .then(response => response.json())
 }
 
-export const getFundGraph = (uuid) => {
+export const getFundGraph = (uuid: string) => {
     return fetch(HOSTURL + RESTAPI.GET_FUND_GRAPH + '?uuid=' + uuid)
         .then(response => response.json())
 }
 
-export const getPredictEntity = (data) => {
+export const getPredictEntity = (data: { macro_trends: any[]; entities: never[]; period: any; }) => {
     const body = JSON.stringify(data)
     return fetch(HOSTURL + RESTAPI.PREDICT_TREND_ENTITIES, {
         method: 'POST',
@@ -155,7 +155,7 @@ export const getPredictEntity = (data) => {
     }).then(response => response.json())
 }
 
-export const getBenchmarkKpiData = (fund_name, gp_name) => {
+export const getBenchmarkKpiData = (fund_name: any, gp_name: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, fund_name, gp_name })
     return fetch(BASEURL + RESTAPI.GET_BENCHMARK_KPI, {
@@ -166,7 +166,7 @@ export const getBenchmarkKpiData = (fund_name, gp_name) => {
         .then(response => response.json())
 }
 
-export const getBenchmarkChartData = (fund_name, gp_name) => {
+export const getBenchmarkChartData = (fund_name: any, gp_name: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, fund_name, gp_name })
     return fetch(BASEURL + RESTAPI.GET_BENCHMARK_CHART, {
@@ -177,7 +177,7 @@ export const getBenchmarkChartData = (fund_name, gp_name) => {
         .then(response => response.json())
 }
 
-export const getBenchmarkData = (fund_name, gp_name) => {
+export const getBenchmarkData = (fund_name: any, gp_name: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, fund_name, gp_name })
     return fetch(BASEURL + RESTAPI.GET_BENCHMARK_DATA, {
@@ -188,7 +188,7 @@ export const getBenchmarkData = (fund_name, gp_name) => {
         .then(response => response.json())
 }
 
-export const getBenchmarkTableData = (fund_name, benchmark_names, gp_name) => {
+export const getBenchmarkTableData = (fund_name: any, benchmark_names: any, gp_name: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, fund_name, benchmark_names, gp_name })
     return fetch(BASEURL + RESTAPI.GET_BENCHMARK_TABLE, {
@@ -203,7 +203,7 @@ export const getQueryResult = () => {
     })
         .then(response => response.json())
 }
-export const getBenchmarkCreateData = (fund_name, gp_name) => {
+export const getBenchmarkCreateData = (fund_name: any, gp_name: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, fund_name, gp_name })
     return fetch(BASEURL + RESTAPI.GET_BENCHMARK_CREATE_DATA, {
@@ -213,7 +213,7 @@ export const getBenchmarkCreateData = (fund_name, gp_name) => {
     }).then(response => response.json())
 }
 
-export const addNewBenchmark = (external_funds, fund_name, name, gp_name) => {
+export const addNewBenchmark = (external_funds: any, fund_name: any, name: any, gp_name: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, external_funds, fund_name, name, gp_name })
     return fetch(BASEURL + RESTAPI.ADD_BENCHMARK_TABLE, {
@@ -222,7 +222,7 @@ export const addNewBenchmark = (external_funds, fund_name, name, gp_name) => {
         body
     }).then(response => response.json())
 }
-export const createNewBenchmark = (fund_name, name, gp_name) => {
+export const createNewBenchmark = (fund_name: any, name: any, gp_name: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, fund_name, name, gp_name })
     return fetch(BASEURL + RESTAPI.ADD_BENCHMARK_DATA, {
@@ -231,7 +231,7 @@ export const createNewBenchmark = (fund_name, name, gp_name) => {
         body
     }).then(response => response.json())
 }
-export const deleteBenchmark = (fund_name, name, gp_name) => {
+export const deleteBenchmark = (fund_name: any, name: any, gp_name: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, fund_name, name, gp_name })
     return fetch(BASEURL + RESTAPI.DELETE_BENCHMARK_DATA, {
@@ -240,16 +240,16 @@ export const deleteBenchmark = (fund_name, name, gp_name) => {
         body
     }).then(response => response.json())
 }
-export const getMacroTrends = (uuid) => {
+export const getMacroTrends = (uuid: string) => {
     return fetch(HOSTURL + RESTAPI.GET_MACRO_TRENDS + '?uuid=' + uuid)
         .then(response => response.json())
 }
 
-export const getEntities = (uuid) => {
+export const getEntities = (uuid: string) => {
     return fetch(HOSTURL + RESTAPI.GET_ENTITIES + '?uuid=' + uuid)
         .then(response => response.json())
 }
-export const addBoxData = (company, type) => {
+export const addBoxData = (company: any, type: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ uid, company, type })
     return fetch(BASEURL + RESTAPI.ADD_KPI_DATA, {
@@ -259,7 +259,7 @@ export const addBoxData = (company, type) => {
     }).then(response => response.json())
 }
 
-export const uploadProfileImage = (data_url) => {
+export const uploadProfileImage = (data_url: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify({ image: data_url })
 
@@ -270,7 +270,7 @@ export const uploadProfileImage = (data_url) => {
     }).then(response => response.json())
 }
 
-export const updateProfile = (data) => {
+export const updateProfile = (data: any) => {
     const uid = getUser().uid;
     const body = JSON.stringify(data)
 
@@ -285,7 +285,7 @@ export const getConfig = () => {
     return fetch(BASEURL + RESTAPI.GET_CONFIG)
         .then(response => response.json())
 }
-export const getOrgGPDetails = (org_id) => {
+export const getOrgGPDetails = (org_id: string) => {
     const uid = getUser().uid;
     return fetch(BASEURL + RESTAPI.GET_GP_DETAILS + '?uuid=' + org_id, {
         headers: { uid, 'Content-Type': 'application/json' }

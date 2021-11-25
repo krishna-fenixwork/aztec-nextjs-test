@@ -6,7 +6,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 
 const firebase = initializeApp(FIREBASE_CONFIG)
 
-export const uiConfig = {
+export const uiConfig:any = {
     // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
     // signInSuccessUrl: "/",
     signInFlow: 'popup',
@@ -15,11 +15,11 @@ export const uiConfig = {
     signInOptions: [GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
         // Avoid redirects after sign-in.
-        signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+        signInSuccessWithAuthResult: function (authResult:any, redirectUrl:any) {
             if (authResult?.additionalUserInfo?.providerId === 'password')
                 localStorage.setItem('signInMethod', 'password');
         },
-        signInFailure: function (error) {
+        signInFailure: function (error:any) {
             // Some unrecoverable error occurred during sign-in.
             // Return a promise when error handling is completed and FirebaseUI
             // will reset, clearing any UI. This commonly occurs for error code

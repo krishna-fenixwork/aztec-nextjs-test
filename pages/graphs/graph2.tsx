@@ -5,7 +5,7 @@ import G6 from '@antv/g6';
 const G6Timebar = () => {    
     
     React.useEffect(() => {
-        const data = {
+        const data:any = {
             nodes: [],
             edges: [],
         };
@@ -26,7 +26,7 @@ const G6Timebar = () => {
                                   
         const width = window.innerWidth;
         const height = window.innerHeight;
-        const timeBarData = [];
+        const timeBarData:any = [];
         
         const nodeSize = 20;
           
@@ -37,7 +37,7 @@ const G6Timebar = () => {
             });
         }
           
-        const timebar = new G6.TimeBar({
+        const timebar:any = new G6.TimeBar({
             x: 0,
             y: 0,
             width,
@@ -57,7 +57,7 @@ const G6Timebar = () => {
             let maxx = -99999999;
             let miny = 99999999;
             let maxy = -99999999;            
-            data.nodes.forEach((node) => {
+            data.nodes.forEach((node:any) => {
                 if (minx > node.x) {
                     minx = node.x;
                 }
@@ -73,7 +73,7 @@ const G6Timebar = () => {
             });
             const scalex = (constrainBox.width - nodeSize / 2) / (maxx - minx);
             const scaley = (constrainBox.height - nodeSize / 2) / (maxy - miny);
-            data.nodes.forEach((node) => {
+            data.nodes.forEach((node:any) => {
                 node.x = (node.x - minx) * scalex + constrainBox.x;
                 node.y = (node.y - miny) * scaley + constrainBox.y;
             });
